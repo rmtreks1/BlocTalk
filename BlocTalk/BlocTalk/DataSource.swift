@@ -16,6 +16,8 @@ class DataSource: NSObject {
     var discoverable: Bool = false // by default users are discoverable
     var displayName: String = UIDevice.currentDevice().name
     var displayImage: UIImage?
+    var allConversations: [Conversations] = []
+    
     
     
     override init(){

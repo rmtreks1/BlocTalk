@@ -16,6 +16,9 @@
 		011687B91B0FE58400C829E1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011687B71B0FE58400C829E1 /* LaunchScreen.xib */; };
 		011687C51B0FE58400C829E1 /* BlocTalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687C41B0FE58400C829E1 /* BlocTalkTests.swift */; };
 		01D4D48A1B13029000B49B8F /* sampleProfileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */; };
+		01D4D48C1B13049C00B49B8F /* Conversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D48B1B13049C00B49B8F /* Conversations.swift */; };
+		01D4D4911B13058300B49B8F /* ConversationElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4901B13058300B49B8F /* ConversationElements.swift */; };
+		01D4D4931B1305A100B49B8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4921B1305A100B49B8F /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,9 @@
 		011687C31B0FE58400C829E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011687C41B0FE58400C829E1 /* BlocTalkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocTalkTests.swift; sourceTree = "<group>"; };
 		01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sampleProfileImage.jpg; sourceTree = "<group>"; };
+		01D4D48B1B13049C00B49B8F /* Conversations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversations.swift; sourceTree = "<group>"; };
+		01D4D4901B13058300B49B8F /* ConversationElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationElements.swift; sourceTree = "<group>"; };
+		01D4D4921B1305A100B49B8F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,11 +89,10 @@
 		011687AB1B0FE58400C829E1 /* BlocTalk */ = {
 			isa = PBXGroup;
 			children = (
+				01D4D48D1B1304C800B49B8F /* Model */,
 				01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */,
-				011687AE1B0FE58400C829E1 /* AppDelegate.swift */,
-				0115E0101B12E5EF0095AC9A /* ChatsTableViewController.swift */,
-				0115E00C1B12C3C90095AC9A /* DataSource.swift */,
-				0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */,
+				01D4D48F1B1304F100B49B8F /* View */,
+				01D4D48E1B1304E200B49B8F /* Controller */,
 				011687B21B0FE58400C829E1 /* Main.storyboard */,
 				011687B51B0FE58400C829E1 /* Images.xcassets */,
 				011687B71B0FE58400C829E1 /* LaunchScreen.xib */,
@@ -119,6 +124,34 @@
 				011687C31B0FE58400C829E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01D4D48D1B1304C800B49B8F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01D4D48B1B13049C00B49B8F /* Conversations.swift */,
+				01D4D4901B13058300B49B8F /* ConversationElements.swift */,
+				0115E00C1B12C3C90095AC9A /* DataSource.swift */,
+				01D4D4921B1305A100B49B8F /* User.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		01D4D48E1B1304E200B49B8F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				011687AE1B0FE58400C829E1 /* AppDelegate.swift */,
+				0115E0101B12E5EF0095AC9A /* ChatsTableViewController.swift */,
+				0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		01D4D48F1B1304F100B49B8F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +259,9 @@
 				0115E00D1B12C3C90095AC9A /* DataSource.swift in Sources */,
 				0115E0111B12E5EF0095AC9A /* ChatsTableViewController.swift in Sources */,
 				0115E00B1B12C38E0095AC9A /* SettingsViewController.swift in Sources */,
+				01D4D48C1B13049C00B49B8F /* Conversations.swift in Sources */,
+				01D4D4911B13058300B49B8F /* ConversationElements.swift in Sources */,
+				01D4D4931B1305A100B49B8F /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
