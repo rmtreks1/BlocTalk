@@ -138,7 +138,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jFt-ww-odC">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="cv7-2S-TiL"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="cv7-2S-TiL">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="vO1-n0-lWp" id="b6N-xl-cCz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="discoverableSwitch" destination="8zU-H0-2nl" id="E1j-sO-Aod"/>

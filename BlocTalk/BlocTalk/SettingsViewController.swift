@@ -20,11 +20,11 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // retrieve saved settings.
+        DataSource.sharedInstance.retrieveUserSettings()
         discoverableSwitch.on = DataSource.sharedInstance.discoverable
         displaySettingsView.hidden = !discoverableSwitch.on
-        displayNameTextField.placeholder = DataSource.sharedInstance.displayName
-
-        // Do any additional setup after loading the view.
+        displayNameTextField.text = DataSource.sharedInstance.displayName
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +42,24 @@ class SettingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        // save settings
+        DataSource.sharedInstance.discoverable = discoverableSwitch.on
+        
+        if displayNameTextField.text != nil {
+            DataSource.sharedInstance.displayName = displayNameTextField.text!
+        }
+        
+        DataSource.sharedInstance.saveUserSettings()
+        
+    }
+    
+    
+    
     
     
     @IBAction func discoverableSwitchChanged(sender: UISwitch) {
