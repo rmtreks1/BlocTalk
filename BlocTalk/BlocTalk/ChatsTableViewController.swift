@@ -183,6 +183,19 @@ class ChatsTableViewController: UITableViewController, MCBrowserViewControllerDe
     func session(session: MCSession!, peer peerID: MCPeerID!,
         didChangeState state: MCSessionState)  {
             // Called when a connected peer changes state (for example, goes offline)
+            switch state {
+            case MCSessionState.Connected:
+                println("Connected to session: \(session)")
+                DataSource.sharedInstance.connectedToPeer(peerID)
+                DataSource.sharedInstance.fakeConversations(peerID)
+                self.tableView.reloadData()
+                
+            case MCSessionState.Connecting:
+                println("Connecting to session: \(session)")
+                
+            default:
+                println("Did not connect to session: \(session)")
+            }
             
     }
 

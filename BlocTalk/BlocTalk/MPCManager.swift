@@ -88,6 +88,16 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState) {
+        switch state {
+        case MCSessionState.Connected:
+            println("Connected to session: \(session)")
+            
+        case MCSessionState.Connecting:
+            println("Connecting to session: \(session)")
+            
+        default:
+            println("Did not connect to session: \(session)")
+        }
         
     }
     
