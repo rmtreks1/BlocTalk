@@ -12,8 +12,17 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet var discoverableSwitch: UISwitch!
+    @IBOutlet var displaySettingsView: UIView!
+    @IBOutlet var displayNameTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        discoverableSwitch.on = DataSource.sharedInstance.discoverable
+        displaySettingsView.hidden = !discoverableSwitch.on
+        displayNameTextField.placeholder = DataSource.sharedInstance.displayName
 
         // Do any additional setup after loading the view.
     }
@@ -33,5 +42,12 @@ class SettingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    @IBAction func discoverableSwitchChanged(sender: UISwitch) {
+        displaySettingsView.hidden = !discoverableSwitch.on
+        DataSource.sharedInstance.discoverable = sender.on
+    }
+    
 
 }
