@@ -20,6 +20,7 @@
 		01D4D4911B13058300B49B8F /* ConversationElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4901B13058300B49B8F /* ConversationElements.swift */; };
 		01D4D4931B1305A100B49B8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4921B1305A100B49B8F /* User.swift */; };
 		01D4D4951B130F5B00B49B8F /* AllConversationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4941B130F5B00B49B8F /* AllConversationsTableViewCell.swift */; };
+		01D4D4971B13575E00B49B8F /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4961B13575E00B49B8F /* MPCManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		01D4D4901B13058300B49B8F /* ConversationElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationElements.swift; sourceTree = "<group>"; };
 		01D4D4921B1305A100B49B8F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		01D4D4941B130F5B00B49B8F /* AllConversationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationsTableViewCell.swift; sourceTree = "<group>"; };
+		01D4D4961B13575E00B49B8F /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				01D4D48B1B13049C00B49B8F /* Conversations.swift */,
 				01D4D4901B13058300B49B8F /* ConversationElements.swift */,
 				0115E00C1B12C3C90095AC9A /* DataSource.swift */,
+				01D4D4961B13575E00B49B8F /* MPCManager.swift */,
 				01D4D4921B1305A100B49B8F /* User.swift */,
 			);
 			name = Model;
@@ -260,6 +263,7 @@
 			files = (
 				01D4D4951B130F5B00B49B8F /* AllConversationsTableViewCell.swift in Sources */,
 				011687AF1B0FE58400C829E1 /* AppDelegate.swift in Sources */,
+				01D4D4971B13575E00B49B8F /* MPCManager.swift in Sources */,
 				0115E00D1B12C3C90095AC9A /* DataSource.swift in Sources */,
 				0115E0111B12E5EF0095AC9A /* ChatsTableViewController.swift in Sources */,
 				0115E00B1B12C38E0095AC9A /* SettingsViewController.swift in Sources */,

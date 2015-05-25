@@ -44,7 +44,7 @@
                                 <connections>
                                     <outlet property="conversationLabel" destination="e0r-2k-VS6" id="0ZA-s8-R4A"/>
                                     <outlet property="profileImage" destination="ANh-Y1-EPm" id="hbN-C4-iaF"/>
-                                    <segue destination="qiQ-fZ-iwo" kind="push" id="C1Q-3B-BSG"/>
+                                    <segue destination="IvW-Mx-KMT" kind="push" id="Nr3-jY-ffQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -96,6 +96,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ghw-LC-08p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="399" y="873"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fB3-0v-t8L">
+            <objects>
+                <viewController id="IvW-Mx-KMT" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5hK-vm-nEL"/>
+                        <viewControllerLayoutGuide type="bottom" id="iL8-2P-cU1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1Fz-gA-BHL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAN-sO-VJd">
+                                <rect key="frame" x="16" y="101" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GAN-sO-VJd" firstAttribute="top" secondItem="5hK-vm-nEL" secondAttribute="bottom" constant="37" id="5uH-x8-e8K"/>
+                            <constraint firstItem="GAN-sO-VJd" firstAttribute="trailing" secondItem="1Fz-gA-BHL" secondAttribute="trailingMargin" id="WYc-ER-oiB"/>
+                            <constraint firstItem="GAN-sO-VJd" firstAttribute="leading" secondItem="1Fz-gA-BHL" secondAttribute="leadingMargin" id="ixg-hT-Xjm"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="p9u-oF-p35"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o0N-FU-KXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="809" y="873"/>
         </scene>
         <!--Settings-->
         <scene sceneID="VV6-oo-lcO">
