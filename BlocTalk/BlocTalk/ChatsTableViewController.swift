@@ -19,6 +19,7 @@ class ChatsTableViewController: UITableViewController, MCBrowserViewControllerDe
     var assistant : MCAdvertiserAssistant!
     var session : MCSession!
     var peerID: MCPeerID!
+//    var allConversations: [Conversations] = []
     
     
 
@@ -58,24 +59,26 @@ class ChatsTableViewController: UITableViewController, MCBrowserViewControllerDe
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return DataSource.sharedInstance.allConversations.count
     }
 
-    /*
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
-        // Configure the cell...
+        // Configure the cell... Move this to separate TableViewCell
+        let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
+        cell.detailTextLabel?.text = conversation.conversationElements.last?.comment
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
