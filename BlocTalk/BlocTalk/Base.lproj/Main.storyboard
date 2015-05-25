@@ -9,15 +9,37 @@
         <scene sceneID="Jq9-r1-pet">
             <objects>
                 <tableViewController id="Puw-xv-4pM" customClass="ChatsTableViewController" customModule="BlocTalk" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UIu-gj-1OB">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="22" sectionFooterHeight="22" id="UIu-gj-1OB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" id="vsn-3U-VlR">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="104" id="vsn-3U-VlR" customClass="AllConversationsTableViewCell" customModule="BlocTalk" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vsn-3U-VlR" id="UGV-TU-MLm">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ANh-Y1-EPm">
+                                            <rect key="frame" x="8" y="10" width="65" height="65"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="65" id="Qfu-tu-Xwe"/>
+                                                <constraint firstAttribute="height" constant="65" id="qbS-Kf-0cl"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0r-2k-VS6">
+                                            <rect key="frame" x="95" y="32" width="184" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ANh-Y1-EPm" firstAttribute="top" secondItem="UGV-TU-MLm" secondAttribute="topMargin" constant="2" id="2aC-n7-mYs"/>
+                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="leading" secondItem="ANh-Y1-EPm" secondAttribute="trailing" constant="22" id="AF4-ls-m9E"/>
+                                        <constraint firstItem="ANh-Y1-EPm" firstAttribute="leading" secondItem="UGV-TU-MLm" secondAttribute="leading" constant="8" id="hPD-tz-mP7"/>
+                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="centerY" secondItem="ANh-Y1-EPm" secondAttribute="centerY" id="oat-Mb-SO0"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="e0r-2k-VS6" secondAttribute="trailing" id="tmD-r6-Hud"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="qiQ-fZ-iwo" kind="push" id="C1Q-3B-BSG"/>
