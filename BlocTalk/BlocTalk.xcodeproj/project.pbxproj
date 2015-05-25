@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0115E00B1B12C38E0095AC9A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */; };
+		0115E00D1B12C3C90095AC9A /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0115E00C1B12C3C90095AC9A /* DataSource.swift */; };
 		011687AF1B0FE58400C829E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687AE1B0FE58400C829E1 /* AppDelegate.swift */; };
 		011687B11B0FE58400C829E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687B01B0FE58400C829E1 /* ViewController.swift */; };
 		011687B41B0FE58400C829E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011687B21B0FE58400C829E1 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0115E00C1B12C3C90095AC9A /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		011687A91B0FE58400C829E1 /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		011687AD1B0FE58400C829E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011687AE1B0FE58400C829E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				011687AE1B0FE58400C829E1 /* AppDelegate.swift */,
+				0115E00C1B12C3C90095AC9A /* DataSource.swift */,
 				011687B01B0FE58400C829E1 /* ViewController.swift */,
+				0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */,
 				011687B21B0FE58400C829E1 /* Main.storyboard */,
 				011687B51B0FE58400C829E1 /* Images.xcassets */,
 				011687B71B0FE58400C829E1 /* LaunchScreen.xib */,
@@ -214,6 +220,8 @@
 			files = (
 				011687B11B0FE58400C829E1 /* ViewController.swift in Sources */,
 				011687AF1B0FE58400C829E1 /* AppDelegate.swift in Sources */,
+				0115E00D1B12C3C90095AC9A /* DataSource.swift in Sources */,
+				0115E00B1B12C38E0095AC9A /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +417,7 @@
 				011687CA1B0FE58400C829E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		011687CB1B0FE58400C829E1 /* Build configuration list for PBXNativeTarget "BlocTalkTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +426,7 @@
 				011687CD1B0FE58400C829E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
