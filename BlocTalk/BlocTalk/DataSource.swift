@@ -15,6 +15,7 @@ class DataSource: NSObject {
     static let sharedInstance = DataSource()
     var discoverable: Bool = false // by default users are discoverable
     var displayName: String = UIDevice.currentDevice().name
+    var displayImage: UIImage?
     
     
     override init(){

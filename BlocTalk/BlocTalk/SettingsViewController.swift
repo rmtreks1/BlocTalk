@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet var discoverableSwitch: UISwitch!
     @IBOutlet var displaySettingsView: UIView!
     @IBOutlet var displayNameTextField: UITextField!
+    @IBOutlet var profileImage: UIImageView!
     
     
     override func viewDidLoad() {

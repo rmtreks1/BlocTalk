@@ -15,6 +15,7 @@
 		011687B61B0FE58400C829E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011687B51B0FE58400C829E1 /* Images.xcassets */; };
 		011687B91B0FE58400C829E1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011687B71B0FE58400C829E1 /* LaunchScreen.xib */; };
 		011687C51B0FE58400C829E1 /* BlocTalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687C41B0FE58400C829E1 /* BlocTalkTests.swift */; };
+		01D4D48A1B13029000B49B8F /* sampleProfileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		011687BE1B0FE58400C829E1 /* BlocTalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocTalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		011687C31B0FE58400C829E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011687C41B0FE58400C829E1 /* BlocTalkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocTalkTests.swift; sourceTree = "<group>"; };
+		01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sampleProfileImage.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		011687AB1B0FE58400C829E1 /* BlocTalk */ = {
 			isa = PBXGroup;
 			children = (
+				01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */,
 				011687AE1B0FE58400C829E1 /* AppDelegate.swift */,
 				0115E0101B12E5EF0095AC9A /* ChatsTableViewController.swift */,
 				0115E00C1B12C3C90095AC9A /* DataSource.swift */,
@@ -198,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D4D48A1B13029000B49B8F /* sampleProfileImage.jpg in Resources */,
 				011687B41B0FE58400C829E1 /* Main.storyboard in Resources */,
 				011687B91B0FE58400C829E1 /* LaunchScreen.xib in Resources */,
 				011687B61B0FE58400C829E1 /* Images.xcassets in Resources */,
