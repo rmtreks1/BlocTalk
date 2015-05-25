@@ -124,7 +124,7 @@ class ChatsTableViewController: UITableViewController, MCBrowserViewControllerDe
     }
     */
     
-    
+    // hook up the + button to this to present the built in MPC Browser View Controller
     @IBAction func newConversation(sender: UIBarButtonItem) {
         self.presentViewController(self.browser, animated: true, completion: nil)
     }

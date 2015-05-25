@@ -62,6 +62,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="iLI-VK-Pyb">
                             <connections>
                                 <action selector="newConversation:" destination="Puw-xv-4pM" id="dr2-qU-CQR"/>
+                                <segue destination="nmk-f2-4JP" kind="modal" id="eLN-tJ-5cI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -220,6 +221,35 @@
             </objects>
             <point key="canvasLocation" x="1201" y="113"/>
         </scene>
+        <!--Find a Chat Buddy-->
+        <scene sceneID="gew-0a-5O9">
+            <objects>
+                <tableViewController id="ZVc-7y-tgp" customClass="PeersBrowserTableViewController" customModule="BlocTalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LhL-pN-RBS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iQN-8e-RI1">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iQN-8e-RI1" id="Twx-xy-oZt">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZVc-7y-tgp" id="daV-9e-Bq5"/>
+                            <outlet property="delegate" destination="ZVc-7y-tgp" id="ajH-SH-hwt"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Find a Chat Buddy" id="llu-9d-Yin">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vt4-xZ-qxR"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ip9-3k-fxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1341" y="-520"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="deO-qv-NPz">
             <objects>
@@ -255,6 +285,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAj-BX-ANM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-23" y="113"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JWP-aV-MVx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nmk-f2-4JP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ydd-gI-ndx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZVc-7y-tgp" kind="relationship" relationship="rootViewController" id="0hB-nZ-us7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kQl-dp-m3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="809" y="-520"/>
         </scene>
     </scenes>
     <resources>

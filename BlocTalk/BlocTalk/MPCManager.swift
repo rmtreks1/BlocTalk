@@ -10,7 +10,7 @@ import MultipeerConnectivity
 
 class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
    
-    
+    static let sharedInstance = MPCManager()
     let serviceType = "BlocTalk"
     var browser : MCNearbyServiceBrowser!
     var advertiser : MCNearbyServiceAdvertiser!
@@ -38,6 +38,12 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         
     }
     
+    func startBrowsingForPeers(){
+        self.browser.startBrowsingForPeers()
+    }
+    
+    
+    
     
     // MARK: - MCNearbyServiceAdvertiserDelegate
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
@@ -47,11 +53,20 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     // MARK: - MCNearbyServiceBrowserDelegate
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
-        
+        availablePeers.append(peerID)
     }
     
     func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
+        for (index,value) in enumerate(availablePeers) {
+            if value == peerID {
+                availablePeers.removeAtIndex(index)
+            }
+        }
         
+    }
+    
+    func browser(browser: MCNearbyServiceBrowser!, didNotStartBrowsingForPeers error: NSError!) {
+        println(error.localizedDescription)
     }
     
     
