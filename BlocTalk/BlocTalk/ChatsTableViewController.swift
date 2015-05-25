@@ -13,13 +13,12 @@ class ChatsTableViewController: UITableViewController, MCBrowserViewControllerDe
     
     
     
-    let serviceType = "BlockTalk"
+    let serviceType = "BlocTalk"
     
     var browser : MCBrowserViewController!
     var assistant : MCAdvertiserAssistant!
     var session : MCSession!
     var peerID: MCPeerID!
-//    var allConversations: [Conversations] = []
     
     
 
@@ -69,12 +68,12 @@ class ChatsTableViewController: UITableViewController, MCBrowserViewControllerDe
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> AllConversationsTableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AllConversationsTableViewCell
 
         // Configure the cell... Move this to separate TableViewCell
         let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
-        cell.detailTextLabel?.text = conversation.conversationElements.last?.comment
+        cell.conversationLabel.text = conversation.conversationElements.last?.comment
 
         return cell
     }

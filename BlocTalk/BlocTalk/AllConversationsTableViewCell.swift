@@ -10,6 +10,13 @@ import UIKit
 
 class AllConversationsTableViewCell: UITableViewCell {
 
+    @IBOutlet var profileImage: UIImageView!
+    @IBOutlet var conversationLabel: UILabel!
+    
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -42,6 +42,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="conversationLabel" destination="e0r-2k-VS6" id="0ZA-s8-R4A"/>
+                                    <outlet property="profileImage" destination="ANh-Y1-EPm" id="hbN-C4-iaF"/>
                                     <segue destination="qiQ-fZ-iwo" kind="push" id="C1Q-3B-BSG"/>
                                 </connections>
                             </tableViewCell>
