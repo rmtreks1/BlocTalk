@@ -62,7 +62,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="iLI-VK-Pyb">
                             <connections>
                                 <action selector="newConversation:" destination="Puw-xv-4pM" id="dr2-qU-CQR"/>
-                                <segue destination="nmk-f2-4JP" kind="modal" id="eLN-tJ-5cI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
