@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 
 
-class PeersBrowserTableViewController: UITableViewController {
+class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate {
     
     var peers = [MCPeerID]()
 
@@ -18,6 +18,8 @@ class PeersBrowserTableViewController: UITableViewController {
         super.viewDidLoad()
         
         peers = MPCManager.sharedInstance.availablePeers
+        
+        MPCManager.sharedInstance.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -118,5 +120,26 @@ class PeersBrowserTableViewController: UITableViewController {
     }
     
     
+    
+    // MARK: - MPCManager Delegate
+    func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!) {
+       
+                let alert = UIAlertController(title: "", message: "\(peerID.displayName) wants to chat.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+                let acceptAction: UIAlertAction = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+                    invitationHandler(true, MPCManager.sharedInstance.session)
+                }
+        
+                let declineAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (alertAction) -> Void in
+                    invitationHandler(false, nil)
+                }
+        
+                alert.addAction(acceptAction)
+                alert.addAction(declineAction)
+        
+                NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+    }
 
 }

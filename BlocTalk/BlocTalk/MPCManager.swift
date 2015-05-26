@@ -8,9 +8,16 @@
 
 import MultipeerConnectivity
 
+protocol MPCManagerDelegate {
+    func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!)
+}
+
+
+
 class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
    
     static let sharedInstance = MPCManager()
+    var delegate = MPCManagerDelegate?()
     let serviceType = "BlocTalk"
     var browser : MCNearbyServiceBrowser!
     var advertiser : MCNearbyServiceAdvertiser!
@@ -61,9 +68,9 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     // MARK: - MCNearbyServiceAdvertiserDelegate
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
         println("received invite from \(peerID.displayName)")
-        // insert alert or something to handle what to do when receive invite
-        
-        invitationHandler(true, self.session)
+
+        self.delegate?.didReceiveInvitationFromPeer(peerID, invitationHandler: invitationHandler)
+
     }
     
     
