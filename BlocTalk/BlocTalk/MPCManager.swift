@@ -67,10 +67,12 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     // MARK: - MCNearbyServiceBrowserDelegate
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
+        println("found peer \(peerID)")
         availablePeers.append(peerID)
     }
     
     func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
+        println("lost peer \(peerID)")
         for (index,value) in enumerate(availablePeers) {
             if value == peerID {
                 availablePeers.removeAtIndex(index)

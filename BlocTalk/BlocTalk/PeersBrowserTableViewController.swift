@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import MultipeerConnectivity
+
 
 class PeersBrowserTableViewController: UITableViewController {
+    
+    var peers = [MCPeerID]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        peers = MPCManager.sharedInstance.availablePeers
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,24 +36,31 @@ class PeersBrowserTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return peers.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
+        let peer = peers[indexPath.row] as MCPeerID
+        
+        cell.textLabel?.text = peer.displayName
+        cell.detailTextLabel?.text = "test detail label"
+        
+        
+        
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

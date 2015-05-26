@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         DataSource.sharedInstance.retrieveUserSettings()
+        MPCManager.sharedInstance.startBrowsingForPeers()
         
         return true
     }
