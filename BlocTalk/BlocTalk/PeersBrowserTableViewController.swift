@@ -12,14 +12,17 @@ import MultipeerConnectivity
 
 class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate {
     
-    var peers = [MCPeerID]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        peers = MPCManager.sharedInstance.availablePeers
+
         
         MPCManager.sharedInstance.delegate = self
+        
+        // Notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePeersTable", name: MPCManager.sharedInstance.notificationKey, object: nil)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -44,7 +47,7 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return peers.count
+        return MPCManager.sharedInstance.availablePeers.count
     }
 
     
@@ -52,7 +55,7 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        let peer = peers[indexPath.row] as MCPeerID
+        let peer = MPCManager.sharedInstance.availablePeers[indexPath.row] as MCPeerID
         
         cell.textLabel?.text = peer.displayName
         cell.detailTextLabel?.text = "test detail label"
@@ -65,7 +68,7 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let peer = peers[indexPath.row] as MCPeerID
+        let peer = MPCManager.sharedInstance.availablePeers[indexPath.row] as MCPeerID
         MPCManager.sharedInstance.invitePeer(peer)
     }
     
@@ -140,6 +143,15 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
                 NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
+    }
+    
+    
+    func updatePeersTable(){
+        
+        println(MPCManager.sharedInstance.availablePeers)
+        self.tableView.reloadData()
+
+    
     }
 
 }

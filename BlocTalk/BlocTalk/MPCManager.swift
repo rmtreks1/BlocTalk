@@ -24,8 +24,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     var assistant: MCAdvertiserAssistant!
     var session : MCSession!
     var peerID: MCPeerID!
-    
     var availablePeers: [MCPeerID] = []
+    let notificationKey = "MPCManagerNotifications"
     
     
     override init() {
@@ -49,6 +49,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
 
 
 //        assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: session)
+        
+        
         
     }
     
@@ -77,7 +79,13 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     // MARK: - MCNearbyServiceBrowserDelegate
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         println("found peer \(peerID)")
-        availablePeers.append(peerID)
+        
+        // check if peer not already in list
+        if !contains(availablePeers, peerID) {
+            availablePeers.append(peerID)
+            NSNotificationCenter.defaultCenter().postNotificationName(self.notificationKey, object: self)
+        }
+
     }
     
     func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
@@ -93,6 +101,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
                 availablePeers.removeAtIndex(index)
             }
         }
+        NSNotificationCenter.defaultCenter().postNotificationName(self.notificationKey, object: self)
         
     }
     
