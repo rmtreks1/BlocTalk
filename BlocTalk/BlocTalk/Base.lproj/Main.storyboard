@@ -61,7 +61,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="iLI-VK-Pyb">
                             <connections>
-                                <action selector="newConversation:" destination="Puw-xv-4pM" id="dr2-qU-CQR"/>
+                                <segue destination="nmk-f2-4JP" kind="modal" id="XUV-nI-wdL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -220,7 +220,7 @@
             </objects>
             <point key="canvasLocation" x="1201" y="113"/>
         </scene>
-        <!--Find a Chat Buddy-->
+        <!--Peers-->
         <scene sceneID="gew-0a-5O9">
             <objects>
                 <tableViewController id="ZVc-7y-tgp" customClass="PeersBrowserTableViewController" customModule="BlocTalk" customModuleProvider="target" sceneMemberID="viewController">
@@ -241,8 +241,12 @@
                             <outlet property="delegate" destination="ZVc-7y-tgp" id="ajH-SH-hwt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Find a Chat Buddy" id="llu-9d-Yin">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vt4-xZ-qxR"/>
+                    <navigationItem key="navigationItem" title="Peers" id="llu-9d-Yin">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vt4-xZ-qxR">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="ZVc-7y-tgp" id="oOL-7N-U2R"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ip9-3k-fxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
