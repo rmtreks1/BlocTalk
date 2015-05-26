@@ -62,6 +62,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
         println("received invite from \(peerID.displayName)")
         // insert alert or something to handle what to do when receive invite
+        
+        invitationHandler(true, self.session)
     }
     
     
