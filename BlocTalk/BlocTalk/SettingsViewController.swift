@@ -65,7 +65,7 @@ class SettingsViewController: UIViewController {
     
     @IBAction func discoverableSwitchChanged(sender: UISwitch) {
         displaySettingsView.hidden = !discoverableSwitch.on
-        DataSource.sharedInstance.discoverable = sender.on
+        DataSource.sharedInstance.changeDiscoverability(sender.on)
     }
     
 

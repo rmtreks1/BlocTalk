@@ -47,7 +47,7 @@ class DataSource: NSObject {
     
     
     
-    
+    //MARK: - Settings
     func retrieveUserSettings(){
         let settings = NSUserDefaults.standardUserDefaults()
         
@@ -78,6 +78,17 @@ class DataSource: NSObject {
         } else {
             settings.setValue(UIDevice.currentDevice().name, forKey: "displayName")
             println("display name is empty")
+        }
+    }
+    
+    
+    func changeDiscoverability (discoverable: Bool){
+        println("discoverability \(discoverable)")
+        self.discoverable = discoverable
+        if discoverable {
+            MPCManager.sharedInstance.startAdvertisingForPeers()
+        } else {
+            println("turn off advertising")
         }
     }
     

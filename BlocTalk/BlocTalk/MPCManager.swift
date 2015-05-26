@@ -34,14 +34,14 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         browser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
         browser.delegate = self
         
-        /*
+
         // comment this out if want control of advertiser, otherwise leave commented out as using assistant
         advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: serviceType)
         advertiser.delegate = self
-        */
 
 
-        assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: session)
+
+//        assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: session)
         
     }
     
@@ -50,7 +50,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     func startAdvertisingForPeers(){
-        self.assistant.start()
+        self.advertiser.startAdvertisingPeer()
+        //        self.assistant.start()
         println("started advertising for peers")
     }
     
