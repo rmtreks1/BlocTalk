@@ -11,6 +11,19 @@
 import UIKit
 import MultipeerConnectivity
 
+
+protocol DataSourceDelegate {
+    
+    func userStatusChange (user: User, index: Int)
+    func changeInUserConnections()
+
+
+
+}
+
+
+
+
 class DataSource: NSObject {
     
     static let sharedInstance = DataSource()
@@ -20,6 +33,8 @@ class DataSource: NSObject {
     var allConversations: [Conversations] = []
     var availablePeers: [MCPeerID] = []
     var allUsers: [User] = []
+    
+    var delegate: DataSourceDelegate?
     
     
     
@@ -72,11 +87,12 @@ class DataSource: NSObject {
         // receives the peer id - checks whether its already in array of available peers and if yes, updates status of the user to available
         if contains(availablePeers, peerID){
             println("peer previously found")
-            for index in 0...allUsers.count {
+            for index in 0...allUsers.count-1 {
                 let user = allUsers[index]
                 if user.peerID == peerID {
                     user.status = true
                     allUsers[index] = user
+                    self.delegate?.userStatusChange(user, index: index)
                 }
             }
         } else {
@@ -85,7 +101,10 @@ class DataSource: NSObject {
             newUser.peerID = peerID
             newUser.status = true
             allUsers.append(newUser)
+            fakeConversations(newUser.peerID)
+
         }
+        self.delegate?.changeInUserConnections()
         println("available peers \(availablePeers)")
         println("all users: \(allUsers)")
     }
@@ -101,7 +120,7 @@ class DataSource: NSObject {
         let conversationElement = ConversationElements()
         conversationElement.user = User()
         conversationElement.user.peerID = peerID
-        conversationElement.comment = "testing my fake conversation"
+        conversationElement.comment = "testing my fake conversation with \(peerID.displayName)"
         conversationElement.time = NSDate()
         
         

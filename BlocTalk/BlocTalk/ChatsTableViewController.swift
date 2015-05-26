@@ -9,11 +9,13 @@
 import UIKit
 import MultipeerConnectivity
 
-class ChatsTableViewController: UITableViewController {
+class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DataSource.sharedInstance.delegate = self
         
   
         // Uncomment the following line to preserve selection between presentations
@@ -46,10 +48,11 @@ class ChatsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> AllConversationsTableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AllConversationsTableViewCell
 
+        
         // Configure the cell... Move this to separate TableViewCell
         let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
         cell.conversationLabel.text = conversation.conversationElements.last?.comment
-
+        
         return cell
     }
 
@@ -105,6 +108,20 @@ class ChatsTableViewController: UITableViewController {
     }
     
 
+    
+    //MARK: - DataSource Delegate
+    func userStatusChange (user: User, index: Int) {
+        self.tableView.reloadData()
+    }
+    
+    
+    func changeInUserConnections(){
+        self.tableView.reloadData()
+        println("refreshing table view")
+        
+        let countOfUsers = DataSource.sharedInstance.allUsers.count
+        println("total users: \(countOfUsers)")
+    }
 
 
 }
