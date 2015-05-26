@@ -112,7 +112,9 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     // MARK: - MCSessionDelegate
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
-        
+        println("did receive data")
+        let testMessage = NSString(data: data, encoding: NSUTF8StringEncoding)
+        println(testMessage)
     }
     
     func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) {
@@ -131,8 +133,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-            DataSource.sharedInstance.connectedToPeer(peerID)
-            DataSource.sharedInstance.fakeConversations(peerID)
+//            DataSource.sharedInstance.connectedToPeer(peerID)
+            fakeConversation(peerID)
             
             
         case MCSessionState.Connecting:
@@ -149,5 +151,23 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func invitePeer (peerID: MCPeerID){
         self.browser.invitePeer(peerID, toSession: self.session, withContext: nil, timeout: 20)
     }
+    
+    
+    
+    
+    
+    
+    
+    //MARK: - Chat
+    func fakeConversation (peerID: MCPeerID){
+        
+        // test data
+        let testMessage = "Hi is this working?" as NSString
+        let testData = testMessage.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        self.session.sendData(testData!, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: nil)
+        
+    }
+    
     
 }

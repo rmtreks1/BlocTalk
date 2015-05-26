@@ -127,6 +127,10 @@ class DataSource: NSObject {
     func fakeConversations(peerID: MCPeerID){
         // create a fake conversation that sends a message to the connected peer
         // way of testing the conversations view controller without having to build a chat screen
+        
+        
+        
+        
     }
    
 }
