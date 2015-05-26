@@ -72,6 +72,12 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
+        /*
+        IMPORTANT
+        Because there is a delay between when a host leaves a network and when the underlying Bonjour layer detects that it has left, 
+        the fact that your app has not yet received a disappearance callback does not guarantee that it can communicate with the peer successfully.
+        */
+        
         println("lost peer \(peerID)")
         for (index,value) in enumerate(availablePeers) {
             if value == peerID {
@@ -121,5 +127,9 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     
+    //MARK: - Invites
+    func invitePeer (peerID: MCPeerID){
+        self.browser.invitePeer(peerID, toSession: self.session, withContext: nil, timeout: 20)
+    }
     
 }

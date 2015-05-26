@@ -61,6 +61,12 @@ class PeersBrowserTableViewController: UITableViewController {
         return cell
     }
     
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let peer = peers[indexPath.row] as MCPeerID
+        MPCManager.sharedInstance.invitePeer(peer)
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
