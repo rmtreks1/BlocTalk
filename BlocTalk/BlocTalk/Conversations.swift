@@ -10,7 +10,7 @@ import UIKit
 
 class Conversations: NSObject {
     
-    var conversationElements: [ConversationElements] = []
+    var conversationText = [User: String]()
     var user: User!
 
     

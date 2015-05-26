@@ -125,21 +125,8 @@ class DataSource: NSObject {
     //MARK: - Test Data
     
     func fakeConversations(peerID: MCPeerID){
-        
-        
-        // fake conversation elements
-        let conversationElement = ConversationElements()
-        conversationElement.user = User()
-        conversationElement.user.peerID = peerID
-        conversationElement.comment = "testing my fake conversation with \(peerID.displayName)"
-        conversationElement.time = NSDate()
-        
-        
-        let conversations = Conversations()
-        conversations.conversationElements.append(conversationElement)
-        conversations.user = conversationElement.user
-        
-        self.allConversations.append(conversations)
+        // create a fake conversation that sends a message to the connected peer
+        // way of testing the conversations view controller without having to build a chat screen
     }
    
 }

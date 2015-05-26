@@ -49,9 +49,9 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AllConversationsTableViewCell
 
         
-        // Configure the cell... Move this to separate TableViewCell
+        // Configure the cell... Move this to separate TableViewCell & this is incomplete
         let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
-        cell.conversationLabel.text = conversation.conversationElements.last?.comment
+     
         
         return cell
     }
