@@ -14,6 +14,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     let serviceType = "BlocTalk"
     var browser : MCNearbyServiceBrowser!
     var advertiser : MCNearbyServiceAdvertiser!
+    var assistant: MCAdvertiserAssistant!
     var session : MCSession!
     var peerID: MCPeerID!
     
@@ -36,6 +37,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: serviceType)
         advertiser.delegate = self
         
+        assistant = MCAdvertiserAssistant(serviceType: serviceType, discoveryInfo: nil, session: session)
+        
     }
     
     func startBrowsingForPeers(){
@@ -43,7 +46,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     func startAdvertisingForPeers(){
-        self.advertiser.startAdvertisingPeer()
+//        self.advertiser.startAdvertisingPeer()
+        self.assistant.start()
         println("started advertising for peers")
     }
     
@@ -52,7 +56,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     // MARK: - MCNearbyServiceAdvertiserDelegate
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
-        
+        println("received invite from \(peerID.displayName)")
+        // insert alert or something to handle what to do when receive invite
     }
     
     
