@@ -42,6 +42,11 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         self.browser.startBrowsingForPeers()
     }
     
+    func startAdvertisingForPeers(){
+        self.advertiser.startAdvertisingPeer()
+        println("started advertising for peers")
+    }
+    
     
     
     
@@ -91,6 +96,9 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
+            DataSource.sharedInstance.connectedToPeer(peerID)
+            DataSource.sharedInstance.fakeConversations(peerID)
+            
             
         case MCSessionState.Connecting:
             println("Connecting to session: \(session)")

@@ -26,7 +26,7 @@ class DataSource: NSObject {
     override init(){
         super.init()
         
-        retrieveUserSettings()
+//        retrieveUserSettings()
         
     }
     
@@ -44,6 +44,10 @@ class DataSource: NSObject {
             println("displayName retrieved")
         }
         
+        if self.discoverable {
+            println("start advertisng availability")
+            MPCManager.sharedInstance.startAdvertisingForPeers()
+        }
 
     }
     
