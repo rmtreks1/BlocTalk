@@ -46,6 +46,7 @@
 		011687BE1B0FE58400C829E1 /* BlocTalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocTalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		011687C31B0FE58400C829E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011687C41B0FE58400C829E1 /* BlocTalkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocTalkTests.swift; sourceTree = "<group>"; };
+		01235C0A1B15D40C00148697 /* BlocTalk-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlocTalk-Bridging-Header.h"; sourceTree = "<group>"; };
 		01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sampleProfileImage.jpg; sourceTree = "<group>"; };
 		01D4D48B1B13049C00B49B8F /* Conversations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversations.swift; sourceTree = "<group>"; };
 		01D4D4921B1305A100B49B8F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 				011687AB1B0FE58400C829E1 /* BlocTalk */,
 				011687C11B0FE58400C829E1 /* BlocTalkTests */,
 				011687AA1B0FE58400C829E1 /* Products */,
+				01235C0A1B15D40C00148697 /* BlocTalk-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,11 +96,11 @@
 			isa = PBXGroup;
 			children = (
 				01D4D48D1B1304C800B49B8F /* Model */,
-				01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */,
 				01D4D48F1B1304F100B49B8F /* View */,
 				01D4D48E1B1304E200B49B8F /* Controller */,
 				011687B21B0FE58400C829E1 /* Main.storyboard */,
 				011687B51B0FE58400C829E1 /* Images.xcassets */,
+				01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */,
 				011687B71B0FE58400C829E1 /* LaunchScreen.xib */,
 				011687AC1B0FE58400C829E1 /* Supporting Files */,
 			);
@@ -396,9 +398,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = BlocTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlocTalk-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -406,9 +411,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = BlocTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlocTalk-Bridging-Header.h";
 			};
 			name = Release;
 		};
