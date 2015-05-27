@@ -100,6 +100,8 @@ class DataSource: NSObject {
     
     
     // MARK: - Multipeer Connectivity
+   
+    /*
     func connectedToPeer (peerID: MCPeerID){
         // receives the peer id - checks whether its already in array of available peers and if yes, updates status of the user to available
         if contains(availablePeers, peerID){
@@ -124,7 +126,7 @@ class DataSource: NSObject {
         println("available peers \(availablePeers)")
         println("all users: \(allUsers)")
     }
-    
+    */
     
     
     func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus){
@@ -134,9 +136,10 @@ class DataSource: NSObject {
             allPeers.updateValue(userStatus, forKey: peerID)
         }
         
-            // else insert the user
+            // else insert the user into both the dictionary and the array used as the dataSource for Peers TBVC
         else {
             allPeers[peerID] = userStatus
+            availablePeers.append(peerID)
         }
         
         let userStatusString = allPeers[peerID]!

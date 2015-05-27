@@ -149,7 +149,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-            DataSource.sharedInstance.connectedToPeer(peerID)
+//            DataSource.sharedInstance.connectedToPeer(peerID)
             fakeConversation(peerID)
             
             
