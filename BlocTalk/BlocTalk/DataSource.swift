@@ -23,6 +23,14 @@ protocol DataSourceDelegate {
 
 class DataSource: NSObject {
     
+    
+    enum UserStatus {
+        case Online
+        case Offline
+    }
+    
+    
+    
     static let sharedInstance = DataSource()
     var discoverable: Bool = false // by default users are discoverable
     var displayName: String = UIDevice.currentDevice().name
@@ -30,6 +38,7 @@ class DataSource: NSObject {
     var allConversations: [Conversations] = []
     var availablePeers: [MCPeerID] = []
     var allUsers: [User] = []
+    var allPeers = [MCPeerID: UserStatus]() // creates a dictionary to make it easier to do searches
     
     var delegate: DataSourceDelegate?
     
@@ -116,5 +125,42 @@ class DataSource: NSObject {
         println("all users: \(allUsers)")
     }
     
+    
+    
+    func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus){
+        
+        // if the user already exists then update status
+        if let peerStatus = allPeers[peerID] {
+            allPeers.updateValue(userStatus, forKey: peerID)
+        }
+        
+            // else insert the user
+        else {
+            allPeers[peerID] = userStatus
+        }
+        
+        let userStatusString = allPeers[peerID]!
+        switch userStatusString {
+        case .Online:
+            println("test of function foundPeer. peer status is Online")
+        
+        case .Offline:
+            println("test of function foundPeer. peer status is Offline")
+        }
+    }
+    
+    
+    
+    func lostPeer (peerID: MCPeerID){
+        
+        
+        
+        
+    }
+    
+    
+    func ignorePeer (peerID: MCPeerID){
+        
+    }
    
 }
