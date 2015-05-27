@@ -146,6 +146,13 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     }
     
     
+    func didReceiveMessage() {
+        
+    }
+    
+    
+    
+    
     func updatePeersTable(){
         
         println(MPCManager.sharedInstance.availablePeers)

@@ -10,6 +10,7 @@ import MultipeerConnectivity
 
 protocol MPCManagerDelegate {
     func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!)
+    func didReceiveMessage()
 }
 
 
@@ -115,6 +116,15 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         println("did receive data")
         let testMessage = NSString(data: data, encoding: NSUTF8StringEncoding)
         println(testMessage)
+        
+        let conversation = Conversations()
+        conversation.conversationText = testMessage as? String
+        
+        DataSource.sharedInstance.allConversations.append(conversation)
+        
+        self.delegate?.didReceiveMessage()
+        
+        
     }
     
     func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) {
@@ -133,7 +143,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-//            DataSource.sharedInstance.connectedToPeer(peerID)
+            DataSource.sharedInstance.connectedToPeer(peerID)
             fakeConversation(peerID)
             
             

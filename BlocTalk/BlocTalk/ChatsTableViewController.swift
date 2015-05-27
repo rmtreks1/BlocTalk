@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class ChatsTableViewController: UITableViewController, DataSourceDelegate {
+class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCManagerDelegate {
     
   
     override func viewDidLoad() {
@@ -24,6 +24,14 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -51,7 +59,7 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         
         // Configure the cell... Move this to separate TableViewCell & this is incomplete
         let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
-     
+        cell.conversationLabel.text = conversation.conversationText
         
         return cell
     }
@@ -123,5 +131,16 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         println("total users: \(countOfUsers)")
     }
 
+    
+    
+    
+    //MARK: - MPCManager Delegate
+    func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!){
+        
+    }
+    
+    func didReceiveMessage(){
+        self.tableView.reloadData()
+    }
 
 }

@@ -10,8 +10,8 @@ import UIKit
 
 class Conversations: NSObject {
     
-    var conversationText = [User: String]()
-    var user: User!
+    var conversationText: String?
+    var user: User?
 
     
     

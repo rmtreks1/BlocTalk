@@ -16,9 +16,6 @@ protocol DataSourceDelegate {
     
     func userStatusChange (user: User, index: Int)
     func changeInUserConnections()
-
-
-
 }
 
 
@@ -112,7 +109,6 @@ class DataSource: NSObject {
             newUser.peerID = peerID
             newUser.status = true
             allUsers.append(newUser)
-            fakeConversations(newUser.peerID)
 
         }
         self.delegate?.changeInUserConnections()
@@ -120,17 +116,5 @@ class DataSource: NSObject {
         println("all users: \(allUsers)")
     }
     
-    
-    
-    //MARK: - Test Data
-    
-    func fakeConversations(peerID: MCPeerID){
-        // create a fake conversation that sends a message to the connected peer
-        // way of testing the conversations view controller without having to build a chat screen
-        
-        
-        
-        
-    }
    
 }
