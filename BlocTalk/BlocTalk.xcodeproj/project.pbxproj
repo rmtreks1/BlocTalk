@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0115E00B1B12C38E0095AC9A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */; };
+		0115E00D1B12C3C90095AC9A /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0115E00C1B12C3C90095AC9A /* DataSource.swift */; };
+		0115E0111B12E5EF0095AC9A /* ChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0115E0101B12E5EF0095AC9A /* ChatsTableViewController.swift */; };
 		011687AF1B0FE58400C829E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687AE1B0FE58400C829E1 /* AppDelegate.swift */; };
-		011687B11B0FE58400C829E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687B01B0FE58400C829E1 /* ViewController.swift */; };
 		011687B41B0FE58400C829E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011687B21B0FE58400C829E1 /* Main.storyboard */; };
 		011687B61B0FE58400C829E1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011687B51B0FE58400C829E1 /* Images.xcassets */; };
 		011687B91B0FE58400C829E1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011687B71B0FE58400C829E1 /* LaunchScreen.xib */; };
 		011687C51B0FE58400C829E1 /* BlocTalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011687C41B0FE58400C829E1 /* BlocTalkTests.swift */; };
+		01D4D48A1B13029000B49B8F /* sampleProfileImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */; };
+		01D4D48C1B13049C00B49B8F /* Conversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D48B1B13049C00B49B8F /* Conversations.swift */; };
+		01D4D4931B1305A100B49B8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4921B1305A100B49B8F /* User.swift */; };
+		01D4D4951B130F5B00B49B8F /* AllConversationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4941B130F5B00B49B8F /* AllConversationsTableViewCell.swift */; };
+		01D4D4971B13575E00B49B8F /* MPCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4961B13575E00B49B8F /* MPCManager.swift */; };
+		01D4D4991B1362CD00B49B8F /* PeersBrowserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D4D4981B1362CD00B49B8F /* PeersBrowserTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +34,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0115E00C1B12C3C90095AC9A /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		0115E0101B12E5EF0095AC9A /* ChatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsTableViewController.swift; sourceTree = "<group>"; };
 		011687A91B0FE58400C829E1 /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		011687AD1B0FE58400C829E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011687AE1B0FE58400C829E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		011687B01B0FE58400C829E1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		011687B31B0FE58400C829E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		011687B51B0FE58400C829E1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		011687B81B0FE58400C829E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		011687BE1B0FE58400C829E1 /* BlocTalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocTalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		011687C31B0FE58400C829E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011687C41B0FE58400C829E1 /* BlocTalkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocTalkTests.swift; sourceTree = "<group>"; };
+		01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sampleProfileImage.jpg; sourceTree = "<group>"; };
+		01D4D48B1B13049C00B49B8F /* Conversations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversations.swift; sourceTree = "<group>"; };
+		01D4D4921B1305A100B49B8F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		01D4D4941B130F5B00B49B8F /* AllConversationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConversationsTableViewCell.swift; sourceTree = "<group>"; };
+		01D4D4961B13575E00B49B8F /* MPCManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCManager.swift; sourceTree = "<group>"; };
+		01D4D4981B1362CD00B49B8F /* PeersBrowserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeersBrowserTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +93,10 @@
 		011687AB1B0FE58400C829E1 /* BlocTalk */ = {
 			isa = PBXGroup;
 			children = (
-				011687AE1B0FE58400C829E1 /* AppDelegate.swift */,
-				011687B01B0FE58400C829E1 /* ViewController.swift */,
+				01D4D48D1B1304C800B49B8F /* Model */,
+				01D4D4891B13029000B49B8F /* sampleProfileImage.jpg */,
+				01D4D48F1B1304F100B49B8F /* View */,
+				01D4D48E1B1304E200B49B8F /* Controller */,
 				011687B21B0FE58400C829E1 /* Main.storyboard */,
 				011687B51B0FE58400C829E1 /* Images.xcassets */,
 				011687B71B0FE58400C829E1 /* LaunchScreen.xib */,
@@ -110,6 +128,36 @@
 				011687C31B0FE58400C829E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01D4D48D1B1304C800B49B8F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01D4D48B1B13049C00B49B8F /* Conversations.swift */,
+				0115E00C1B12C3C90095AC9A /* DataSource.swift */,
+				01D4D4961B13575E00B49B8F /* MPCManager.swift */,
+				01D4D4921B1305A100B49B8F /* User.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		01D4D48E1B1304E200B49B8F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				011687AE1B0FE58400C829E1 /* AppDelegate.swift */,
+				0115E0101B12E5EF0095AC9A /* ChatsTableViewController.swift */,
+				0115E00A1B12C38E0095AC9A /* SettingsViewController.swift */,
+				01D4D4981B1362CD00B49B8F /* PeersBrowserTableViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		01D4D48F1B1304F100B49B8F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				01D4D4941B130F5B00B49B8F /* AllConversationsTableViewCell.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D4D48A1B13029000B49B8F /* sampleProfileImage.jpg in Resources */,
 				011687B41B0FE58400C829E1 /* Main.storyboard in Resources */,
 				011687B91B0FE58400C829E1 /* LaunchScreen.xib in Resources */,
 				011687B61B0FE58400C829E1 /* Images.xcassets in Resources */,
@@ -212,8 +261,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				011687B11B0FE58400C829E1 /* ViewController.swift in Sources */,
+				01D4D4951B130F5B00B49B8F /* AllConversationsTableViewCell.swift in Sources */,
 				011687AF1B0FE58400C829E1 /* AppDelegate.swift in Sources */,
+				01D4D4971B13575E00B49B8F /* MPCManager.swift in Sources */,
+				0115E00D1B12C3C90095AC9A /* DataSource.swift in Sources */,
+				0115E0111B12E5EF0095AC9A /* ChatsTableViewController.swift in Sources */,
+				0115E00B1B12C38E0095AC9A /* SettingsViewController.swift in Sources */,
+				01D4D48C1B13049C00B49B8F /* Conversations.swift in Sources */,
+				01D4D4991B1362CD00B49B8F /* PeersBrowserTableViewController.swift in Sources */,
+				01D4D4931B1305A100B49B8F /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +465,7 @@
 				011687CA1B0FE58400C829E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		011687CB1B0FE58400C829E1 /* Build configuration list for PBXNativeTarget "BlocTalkTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +474,7 @@
 				011687CD1B0FE58400C829E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
