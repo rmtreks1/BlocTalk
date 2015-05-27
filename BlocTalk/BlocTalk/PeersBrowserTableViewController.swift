@@ -65,6 +65,9 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
             
         case .Offline:
             cell.detailTextLabel?.text = "Offline"
+            
+        default:
+            cell.detailTextLabel?.text = "Unknown"
         }
         
         return cell

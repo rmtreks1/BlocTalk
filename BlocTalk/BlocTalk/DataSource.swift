@@ -27,6 +27,7 @@ class DataSource: NSObject {
     enum UserStatus {
         case Online
         case Offline
+        case Unknown
     }
     
     
@@ -57,6 +58,10 @@ class DataSource: NSObject {
     func retrieveUserSettings(){
         let settings = NSUserDefaults.standardUserDefaults()
         
+        if let tempAvailablePeersData = settings.objectForKey("availablePeers") as? NSData {
+            self.availablePeers = (NSKeyedUnarchiver.unarchiveObjectWithData(tempAvailablePeersData) as? [MCPeerID])!
+            populateAllPeers()
+        }
         
         self.discoverable = settings.boolForKey("discoverable")
         
@@ -69,7 +74,16 @@ class DataSource: NSObject {
             println("start advertisng availability")
             MPCManager.sharedInstance.startAdvertisingForPeers()
         }
-
+        println("***** retrieving settings *****")
+        println("available peers: \(self.availablePeers)")
+    }
+    
+    
+    func populateAllPeers(){
+        
+        for peer in availablePeers {
+            allPeers[peer] = UserStatus.Unknown
+        }
     }
     
     
@@ -142,6 +156,13 @@ class DataSource: NSObject {
             availablePeers.append(peerID)
         }
         
+        // saving Available Peers to defaults
+        let settings = NSUserDefaults.standardUserDefaults()
+        let availablePeersData =  NSKeyedArchiver.archivedDataWithRootObject(self.availablePeers)
+        settings.setObject(availablePeersData, forKey: "availablePeers")
+        
+        /*
+        // this code is for testing that correct UserStatus is coming through. Uncomment to test.
         let userStatusString = allPeers[peerID]!
         switch userStatusString {
         case .Online:
@@ -150,20 +171,18 @@ class DataSource: NSObject {
         case .Offline:
             println("test of function foundPeer. peer status is Offline")
         }
+        */
+        
+        
     }
     
     
     
     func lostPeer (peerID: MCPeerID){
-        
-        
-        
-        
     }
     
     
     func ignorePeer (peerID: MCPeerID){
-        
     }
    
 }
