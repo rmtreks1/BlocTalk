@@ -56,13 +56,17 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
 
         // Configure the cell...
         let peer = DataSource.sharedInstance.availablePeers[indexPath.row] as MCPeerID
-        
         cell.textLabel?.text = peer.displayName
-        cell.detailTextLabel?.text = "test detail label"
         
+        let userStatusString = DataSource.sharedInstance.allPeers[peer]!
+        switch userStatusString {
+        case .Online:
+            cell.detailTextLabel?.text = "Online"
+            
+        case .Offline:
+            cell.detailTextLabel?.text = "Offline"
+        }
         
-        
-
         return cell
     }
     
