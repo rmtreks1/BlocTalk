@@ -10,7 +10,7 @@ import UIKit
 
 class ChatViewController: JSQMessagesViewController {
     
-    var demoData: [JSQMessage]?
+//    var demoData: [JSQMessage]?
     
     
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ class ChatViewController: JSQMessagesViewController {
         self.senderId = "rmtreks"
         self.senderDisplayName = "roshan m"
         
-        demoData = TestData.sharedInstance.messages
+//        demoData = TestData.sharedInstance.messages
 
         // Do any additional setup after loading the view.
     }
@@ -44,7 +44,7 @@ class ChatViewController: JSQMessagesViewController {
     // MARK: - JSQMessagesCollectionViewDataSource Protocol
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        let message = self.demoData![indexPath.item]
+        let message = TestData.sharedInstance.messages[indexPath.item]
         
         return message
     }
@@ -53,7 +53,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         
-        let message = self.demoData![indexPath.item]
+        let message = TestData.sharedInstance.messages[indexPath.item]
         
         if message.senderId == self.senderId {
             return TestData.sharedInstance.outgoingBubbleImageData
@@ -72,7 +72,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
         
-        let message = self.demoData![indexPath.item]
+        let message = TestData.sharedInstance.messages[indexPath.item]
         
         
         // display the date if time interval to the last time is > 1 hour
@@ -89,11 +89,11 @@ class ChatViewController: JSQMessagesViewController {
 
     func shouldDisplayDate (index: Int) -> Bool{
         
-        let message = self.demoData![index]
+        let message = TestData.sharedInstance.messages[index]
         
         if index > 0 {
             if let messageDate = message.date {
-                let previousMessage = self.demoData![index-1]
+                let previousMessage = TestData.sharedInstance.messages[index-1]
                 if let previousMessageDate = previousMessage.date {
                     let timeInterval = Int(message.date.timeIntervalSinceDate(previousMessage.date))
                     let shouldDisplay: Bool = timeInterval >= 3600
@@ -117,55 +117,69 @@ class ChatViewController: JSQMessagesViewController {
     
     
     
+    //MARK: - Actions
+    
+    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+        
+        println("did press send button")
+        
+        let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
+        println(message.text)
+        
+        
+        TestData.sharedInstance.messages.append(message)
+        
+        finishSendingMessageAnimated(true)
+        
+    }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
-//    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
-//    {
-//    /**
-//    *  Each label in a cell has a `height` delegate method that corresponds to its text dataSource method
-//    */
 //    
-//    /**
-//    *  This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
-//    *  The other label height delegate methods should follow similarly
-//    *
-//    *  Show a timestamp for every 3rd message
-//    */
-//    if (indexPath.item % 3 == 0) {
-//    return kJSQMessagesCollectionViewCellLabelHeightDefault;
+//    override func finishSendingMessageAnimated(animated: Bool) {
+//        let textView: UITextView = self.inputToolbar.contentView.textView
+//        textView.text = nil
+//        textView.undoManager?.removeAllActions()
+//        
+//        self.inputToolbar.toggleSendButtonEnabled()
+//        
+//        //    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
+//        
+//        
+//
+//        
+//        self.collectionView.collectionViewLayout.invalidateLayoutWithContext(JSQMessagesCollectionViewFlowLayoutInvalidationContext(context))
+//        
+//        self.collectionView.reloadData()
+//        
+//        if self.automaticallyScrollsToMostRecentMessage {
+//            self.scrollToBottomAnimated(true)
+//        }
+//        
+//    }
+
+    
+//    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+//    [self.collectionView reloadData];
+//    
+//    if (self.automaticallyScrollsToMostRecentMessage) {
+//    [self scrollToBottomAnimated:animated];
+//    }
 //    }
 //    
-//    return 0.0f;
-//    }
-//    
-//    
-//    
+    
+    
+    
+    
+    
+    
     
     
     
     // MARK: - UICollectionView DataSource
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        println("number of messages are: \(self.demoData!.count)")
-        return self.demoData!.count
+        println("number of messages are: \(TestData.sharedInstance.messages.count)")
+        return TestData.sharedInstance.messages.count
     }
     
 
