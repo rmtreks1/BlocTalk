@@ -74,18 +74,45 @@ class ChatViewController: JSQMessagesViewController {
         
         let message = self.demoData![indexPath.item]
         
-        return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
         
+        // display the date if time interval to the last time is > 1 hour
         
+        if indexPath.item == 0 {
+            return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
+        } else if shouldDisplayDate(indexPath.item) {
+            return JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
+        }
+        return nil
     }
+    
+    
+
+    func shouldDisplayDate (index: Int) -> Bool{
+        
+        let message = self.demoData![index]
+        
+        if index > 0 {
+            if let messageDate = message.date {
+                let previousMessage = self.demoData![index-1]
+                if let previousMessageDate = previousMessage.date {
+                    let timeInterval = Int(message.date.timeIntervalSinceDate(previousMessage.date))
+                    let shouldDisplay: Bool = timeInterval >= 3600
+                    return shouldDisplay
+                }
+            }
+        }
+        return false
+    }
+    
+    
     
  
     override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         
-        let cellHeight = CGFloat(20)
-        
-        return cellHeight
-    
+        if shouldDisplayDate(indexPath.item) {
+            return CGFloat(20)
+        }
+        return CGFloat(0)
     }
     
     
