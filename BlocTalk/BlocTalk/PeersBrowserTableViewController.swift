@@ -47,7 +47,7 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return MPCManager.sharedInstance.availablePeers.count
+        return DataSource.sharedInstance.availablePeers.count
     }
 
     
@@ -55,20 +55,27 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        let peer = MPCManager.sharedInstance.availablePeers[indexPath.row] as MCPeerID
-        
+        let peer = DataSource.sharedInstance.availablePeers[indexPath.row] as MCPeerID
         cell.textLabel?.text = peer.displayName
-        cell.detailTextLabel?.text = "test detail label"
         
+        let userStatusString = DataSource.sharedInstance.allPeers[peer]!
+        switch userStatusString {
+        case .Online:
+            cell.detailTextLabel?.text = "Online"
+            
+        case .Offline:
+            cell.detailTextLabel?.text = "Offline"
+            
+        default:
+            cell.detailTextLabel?.text = "Unknown"
+        }
         
-        
-
         return cell
     }
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let peer = MPCManager.sharedInstance.availablePeers[indexPath.row] as MCPeerID
+        let peer = DataSource.sharedInstance.availablePeers[indexPath.row] as MCPeerID
         MPCManager.sharedInstance.invitePeer(peer)
     }
     
@@ -155,7 +162,7 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     
     func updatePeersTable(){
         
-        println(MPCManager.sharedInstance.availablePeers)
+        println(DataSource.sharedInstance.availablePeers)
         self.tableView.reloadData()
 
     

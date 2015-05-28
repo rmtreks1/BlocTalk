@@ -81,6 +81,9 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         println("found peer \(peerID)")
         
+        
+        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online) // test function
+        
         // check if peer not already in list
         if !contains(availablePeers, peerID) {
             availablePeers.append(peerID)
@@ -97,6 +100,9 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         */
         
         println("lost peer \(peerID)")
+        
+        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline)
+        
         for (index,value) in enumerate(availablePeers) {
             if value == peerID {
                 availablePeers.removeAtIndex(index)
@@ -143,7 +149,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-            DataSource.sharedInstance.connectedToPeer(peerID)
+//            DataSource.sharedInstance.connectedToPeer(peerID)
             fakeConversation(peerID)
             
             
