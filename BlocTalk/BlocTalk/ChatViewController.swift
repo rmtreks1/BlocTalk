@@ -65,7 +65,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         
-        return TestData.sharedInstance.placeholderAvatar
+        return TestData.sharedInstance.placeholderAvatar!
     }
     
     
@@ -76,70 +76,6 @@ class ChatViewController: JSQMessagesViewController {
         println("number of messages are: \(self.demoData!.count)")
         return self.demoData!.count
     }
-    
-    
-    
-//  
-//    
-//    - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//    {
-//    /**
-//    *  Override point for customizing cells
-//    */
-//    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-//    
-//    /**
-//    *  Configure almost *anything* on the cell
-//    *
-//    *  Text colors, label text, label colors, etc.
-//    *
-//    *
-//    *  DO NOT set `cell.textView.font` !
-//    *  Instead, you need to set `self.collectionView.collectionViewLayout.messageBubbleFont` to the font you want in `viewDidLoad`
-//    *
-//    *
-//    *  DO NOT manipulate cell layout information!
-//    *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
-//    */
-//    
-//    JSQMessage *msg = [self.demoData.messages objectAtIndex:indexPath.item];
-//    
-//    if (!msg.isMediaMessage) {
-//    
-//    if ([msg.senderId isEqualToString:self.senderId]) {
-//    cell.textView.textColor = [UIColor blackColor];
-//    }
-//    else {
-//    cell.textView.textColor = [UIColor whiteColor];
-//    }
-//    
-//    cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
-//    NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
-//    }
-//    
-//    return cell;
-//    }
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-//    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
     /*

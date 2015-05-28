@@ -29,6 +29,7 @@ class TestData: NSObject {
         
         createDemoData()
         createMessageBubbles()
+        createAvatar()
         
         
         
@@ -60,7 +61,7 @@ class TestData: NSObject {
     
     func createAvatar() {
         
-        let avatarImage: UIImage = UIImage(named: "DemoAvatar")!
+        let avatarImage: UIImage = UIImage(named: "demo_avatar")!
         self.placeholderAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(avatarImage, diameter: 30)
         
     }
