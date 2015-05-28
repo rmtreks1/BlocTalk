@@ -70,7 +70,9 @@ class TestData: NSObject {
         messages.append(photoMessage)
         
         
-        allMessages["sub"] = messages
+        DataSource.sharedInstance.allMessages["sub"] = messages
+        
+        println("created demo data")
         
     }
     

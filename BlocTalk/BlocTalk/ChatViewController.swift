@@ -23,9 +23,10 @@ class ChatViewController: JSQMessagesViewController {
         self.senderDisplayName = "roshan m"
         self.peerID = "sub"
         
+        // creating test data
+        TestData.sharedInstance.createDemoData()
         
-        
-        if let tempChatData = TestData.sharedInstance.allMessages[self.peerID!]{
+        if let tempChatData = DataSource.sharedInstance.allMessages[self.peerID!]{
             chatData = tempChatData
         } else {
             chatData = []
@@ -181,7 +182,7 @@ class ChatViewController: JSQMessagesViewController {
         
         
         // save the message
-        TestData.sharedInstance.allMessages[self.peerID!] = self.chatData
+        DataSource.sharedInstance.allMessages[self.peerID!] = self.chatData
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
