@@ -133,39 +133,11 @@ class ChatViewController: JSQMessagesViewController {
         
     }
     
-    
-//    
-//    override func finishSendingMessageAnimated(animated: Bool) {
-//        let textView: UITextView = self.inputToolbar.contentView.textView
-//        textView.text = nil
-//        textView.undoManager?.removeAllActions()
-//        
-//        self.inputToolbar.toggleSendButtonEnabled()
-//        
-//        //    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
-//        
-//        
-//
-//        
-//        self.collectionView.collectionViewLayout.invalidateLayoutWithContext(JSQMessagesCollectionViewFlowLayoutInvalidationContext(context))
-//        
-//        self.collectionView.reloadData()
-//        
-//        if self.automaticallyScrollsToMostRecentMessage {
-//            self.scrollToBottomAnimated(true)
-//        }
-//        
-//    }
 
     
-//    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
-//    [self.collectionView reloadData];
-//    
-//    if (self.automaticallyScrollsToMostRecentMessage) {
-//    [self scrollToBottomAnimated:animated];
-//    }
-//    }
-//    
+    override func didPressAccessoryButton(sender: UIButton!) {
+        println("camera button pressed - finish this function")
+    }
     
     
     
