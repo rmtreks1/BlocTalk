@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class TestData: NSObject {
    
     static let sharedInstance = TestData()
     var messages = [JSQMessage]()
+    var allMessages = [String: [JSQMessage]]() // dictionary with array of JSQMessages - in final version replace String with MCPeerID
     var outgoingBubbleImageData: JSQMessagesBubbleImage?
     var incomingBubbleImageData: JSQMessagesBubbleImage?
     var placeholderAvatar: JSQMessagesAvatarImage?
@@ -67,6 +69,8 @@ class TestData: NSObject {
         let photoMessage = JSQMessage(senderId: "rmtreks", senderDisplayName: "roshan m", date: nextHour!, media: photoItem)
         messages.append(photoMessage)
         
+        
+        allMessages["sub"] = messages
         
     }
     

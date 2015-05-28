@@ -10,7 +10,8 @@ import UIKit
 
 class ChatViewController: JSQMessagesViewController {
     
-//    var demoData: [JSQMessage]?
+    var chatData: [JSQMessage]?
+    var peerID: String?
     
     
     override func viewDidLoad() {
@@ -20,8 +21,18 @@ class ChatViewController: JSQMessagesViewController {
         // must set up SenderID and SenderDisplayName
         self.senderId = "rmtreks"
         self.senderDisplayName = "roshan m"
+        self.peerID = "sub"
         
-//        demoData = TestData.sharedInstance.messages
+        
+        
+        if let tempChatData = TestData.sharedInstance.allMessages[self.peerID!]{
+            chatData = tempChatData
+        } else {
+            chatData = []
+        }
+        
+        
+//        chatData = TestData.sharedInstance.allMessages["monk"]
 
         // Do any additional setup after loading the view.
     }
@@ -44,7 +55,7 @@ class ChatViewController: JSQMessagesViewController {
     // MARK: - JSQMessagesCollectionViewDataSource Protocol
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        let message = TestData.sharedInstance.messages[indexPath.item]
+        let message = chatData![indexPath.item]
         
         return message
     }
@@ -53,7 +64,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         
-        let message = TestData.sharedInstance.messages[indexPath.item]
+        let message = chatData![indexPath.item]
         
         if message.senderId == self.senderId {
             return TestData.sharedInstance.outgoingBubbleImageData
@@ -72,7 +83,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
         
-        let message = TestData.sharedInstance.messages[indexPath.item]
+        let message = chatData![indexPath.item]
         
         
         // display the date if time interval to the last time is > 1 hour
@@ -89,11 +100,11 @@ class ChatViewController: JSQMessagesViewController {
 
     func shouldDisplayDate (index: Int) -> Bool{
         
-        let message = TestData.sharedInstance.messages[index]
+        let message = chatData![index]
         
         if index > 0 {
             if let messageDate = message.date {
-                let previousMessage = TestData.sharedInstance.messages[index-1]
+                let previousMessage = chatData![index-1]
                 if let previousMessageDate = previousMessage.date {
                     let timeInterval = Int(message.date.timeIntervalSinceDate(previousMessage.date))
                     let shouldDisplay: Bool = timeInterval >= 3600
@@ -127,7 +138,7 @@ class ChatViewController: JSQMessagesViewController {
         println(message.text)
         
         
-        TestData.sharedInstance.messages.append(message)
+        chatData!.append(message)
         
         finishSendingMessageAnimated(true)
         
@@ -150,8 +161,8 @@ class ChatViewController: JSQMessagesViewController {
     // MARK: - UICollectionView DataSource
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        println("number of messages are: \(TestData.sharedInstance.messages.count)")
-        return TestData.sharedInstance.messages.count
+        println("number of messages are: \(chatData!.count)")
+        return chatData!.count
     }
     
 
@@ -167,6 +178,11 @@ class ChatViewController: JSQMessagesViewController {
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
         println("done button pressed")
+        
+        
+        // save the message
+        TestData.sharedInstance.allMessages[self.peerID!] = self.chatData
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
    
