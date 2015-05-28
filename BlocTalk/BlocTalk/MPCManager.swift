@@ -11,6 +11,7 @@ import MultipeerConnectivity
 protocol MPCManagerDelegate {
     func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!)
     func didReceiveMessage()
+    func didConnectToPeer (peerID: MCPeerID)
 }
 
 
@@ -151,6 +152,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
             println("Connected to session: \(session)")
 //            DataSource.sharedInstance.connectedToPeer(peerID)
             fakeConversation(peerID)
+            self.delegate?.didConnectToPeer(peerID)
             
             
         case MCSessionState.Connecting:

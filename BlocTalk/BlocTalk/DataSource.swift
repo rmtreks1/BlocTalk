@@ -41,7 +41,7 @@ class DataSource: NSObject {
     var allUsers: [User] = []
     var allPeers = [MCPeerID: UserStatus]() // creates a dictionary to make it easier to do searches
     
-    var allMessages = [String: [JSQMessage]]() 
+    var allMessages = [String: [JSQMessage]]() // replace String with MCPeerID
     
     var delegate: DataSourceDelegate?
     

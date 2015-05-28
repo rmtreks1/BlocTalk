@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCManagerDelegate {
+class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     
   
     override func viewDidLoad() {

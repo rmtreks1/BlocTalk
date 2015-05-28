@@ -164,8 +164,12 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         
         println(DataSource.sharedInstance.availablePeers)
         self.tableView.reloadData()
-
+    }
     
+    
+    func didConnectToPeer(peerID: MCPeerID) {
+        println("connected to peer")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
