@@ -10,12 +10,18 @@ import UIKit
 
 class ChatViewController: JSQMessagesViewController {
     
+    var demoData = [JSQMessage]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.senderId = "placeholderSenderID"
-        self.senderDisplayName = DataSource.sharedInstance.displayName
+        
+        // must set up SenderID and SenderDisplayName
+        self.senderId = "rmtreks"
+        self.senderDisplayName = "roshan m"
+        
+        demoData = TestData.sharedInstance.messages
 
         // Do any additional setup after loading the view.
     }
@@ -24,6 +30,44 @@ class ChatViewController: JSQMessagesViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.collectionView.collectionViewLayout.springinessEnabled = false
+        
+    }
+    
+    
+    
+    // MARK: - JSQMessagesCollectionViewDataSource Protocol
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+        let message = self.demoData[indexPath.item]
+        
+        return message
+    }
+    
+
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+        
+        let message = self.demoData[indexPath.item]
+        
+        if message.senderId == self.senderId {
+            return TestData.sharedInstance.outgoingBubbleImageData
+        }
+        
+        return TestData.sharedInstance.incomingBubbleImageData
+    }
+    
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        
+        return TestData.sharedInstance.placeholderAvatar
+    }
+    
     
 
     /*

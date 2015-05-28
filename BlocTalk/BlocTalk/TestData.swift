@@ -10,8 +10,29 @@ import UIKit
 
 class TestData: NSObject {
    
+    static let sharedInstance = TestData()
     var messages = [JSQMessage]()
+    var outgoingBubbleImageData: JSQMessagesBubbleImage?
+    var incomingBubbleImageData: JSQMessagesBubbleImage?
+    var placeholderAvatar: JSQMessagesAvatarImage?
     
+    
+    
+//    
+//    @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
+//    
+//    @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
+//    
+    
+    override init () {
+        super.init()
+        
+        createDemoData()
+        createMessageBubbles()
+        
+        
+        
+    }
     
     
     func createDemoData(){
@@ -28,9 +49,21 @@ class TestData: NSObject {
     }
     
     
+    func createMessageBubbles(){
+        
+        let bubbleFactory = JSQMessagesBubbleImageFactory()
+        self.outgoingBubbleImageData = bubbleFactory.outgoingMessagesBubbleImageWithColor(UIColor.blueColor())
+        self.incomingBubbleImageData = bubbleFactory.incomingMessagesBubbleImageWithColor(UIColor.greenColor())
+        
+    }
     
     
-    
+    func createAvatar() {
+        
+        let avatarImage: UIImage = UIImage(named: "DemoAvatar")!
+        self.placeholderAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(avatarImage, diameter: 30)
+        
+    }
     
     
     
