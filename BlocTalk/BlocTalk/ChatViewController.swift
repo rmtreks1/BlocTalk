@@ -151,13 +151,7 @@ class ChatViewController: JSQMessagesViewController {
         println("camera button pressed - finish this function")
     }
     
-    
-    
-    
-    
-    
-    
-    
+        
     
     // MARK: - UICollectionView DataSource
     

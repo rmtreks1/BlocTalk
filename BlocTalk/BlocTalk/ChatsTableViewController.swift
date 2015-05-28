@@ -29,6 +29,13 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        DataSource.sharedInstance.allMessagesPeers = []
+        for (peerID, messages) in DataSource.sharedInstance.allMessages {
+            DataSource.sharedInstance.allMessagesPeers.append(peerID)
+        }
+        
+        
+        
         self.tableView.reloadData()
     }
     
@@ -49,7 +56,11 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return DataSource.sharedInstance.allConversations.count
+        
+        println("Data source allMessages has \(DataSource.sharedInstance.allMessages.count)")
+        println("Data source allMessagesPeers has \(DataSource.sharedInstance.allMessagesPeers.count)")
+        
+        return DataSource.sharedInstance.allMessagesPeers.count
     }
 
 
@@ -58,8 +69,11 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
 
         
         // Configure the cell... Move this to separate TableViewCell & this is incomplete
-        let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
-        cell.conversationLabel.text = conversation.conversationText
+        let peerID = DataSource.sharedInstance.allMessagesPeers[indexPath.row]
+        let conversation = DataSource.sharedInstance.allMessages[peerID]
+        let conversationText = conversation?.first?.text
+        
+        cell.conversationLabel.text = conversationText!
         
         return cell
     }
@@ -134,13 +148,5 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     
     
     
-    //MARK: - MPCManager Delegate
-    func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!){
-        
-    }
     
-    func didReceiveMessage(){
-        self.tableView.reloadData()
-    }
-
 }
