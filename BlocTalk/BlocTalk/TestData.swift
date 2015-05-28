@@ -62,6 +62,12 @@ class TestData: NSObject {
         let message5 = JSQMessage(senderId: "sub", senderDisplayName: "subhaga", date: nextHour!, text: "whats up an hour later")
         messages.append(message5)
 
+        
+        let photoItem = JSQPhotoMediaItem(image: UIImage(named: "sampleProfileImage.jpg"))
+        let photoMessage = JSQMessage(senderId: "rmtreks", senderDisplayName: "roshan m", date: nextHour!, media: photoItem)
+        messages.append(photoMessage)
+        
+        
     }
     
     
