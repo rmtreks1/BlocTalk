@@ -12,6 +12,7 @@ class AllConversationsTableViewCell: UITableViewCell {
 
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var conversationLabel: UILabel!
+    @IBOutlet var peerDisplayNameLabel: UILabel!
     
     
     

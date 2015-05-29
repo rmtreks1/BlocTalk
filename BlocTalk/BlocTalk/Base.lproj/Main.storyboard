@@ -26,23 +26,36 @@
                                                 <constraint firstAttribute="height" constant="65" id="qbS-Kf-0cl"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0r-2k-VS6">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0r-2k-VS6">
                                             <rect key="frame" x="95" y="32" width="184" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PeerDisplayNameLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v39-o0-GSv">
+                                            <rect key="frame" x="95" y="10" width="192" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="3PV-pd-8AP"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ANh-Y1-EPm" firstAttribute="top" secondItem="UGV-TU-MLm" secondAttribute="topMargin" constant="2" id="2aC-n7-mYs"/>
-                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="leading" secondItem="ANh-Y1-EPm" secondAttribute="trailing" constant="22" id="AF4-ls-m9E"/>
+                                        <constraint firstAttribute="trailing" secondItem="v39-o0-GSv" secondAttribute="trailing" id="9z2-7i-jpW"/>
+                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="leading" secondItem="ANh-Y1-EPm" secondAttribute="trailing" constant="22" id="Cac-s6-e8y"/>
+                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="trailing" secondItem="UGV-TU-MLm" secondAttribute="trailingMargin" id="Lag-Ut-7G9"/>
+                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="top" secondItem="v39-o0-GSv" secondAttribute="bottom" constant="5" id="Vg7-z1-p67"/>
                                         <constraint firstItem="ANh-Y1-EPm" firstAttribute="leading" secondItem="UGV-TU-MLm" secondAttribute="leading" constant="8" id="hPD-tz-mP7"/>
-                                        <constraint firstItem="e0r-2k-VS6" firstAttribute="centerY" secondItem="ANh-Y1-EPm" secondAttribute="centerY" id="oat-Mb-SO0"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="e0r-2k-VS6" secondAttribute="trailing" id="tmD-r6-Hud"/>
+                                        <constraint firstItem="v39-o0-GSv" firstAttribute="leading" secondItem="ANh-Y1-EPm" secondAttribute="trailing" constant="22" id="hRB-Do-Fce"/>
+                                        <constraint firstItem="v39-o0-GSv" firstAttribute="top" secondItem="UGV-TU-MLm" secondAttribute="top" constant="10" id="yUM-hw-7yS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="conversationLabel" destination="e0r-2k-VS6" id="0ZA-s8-R4A"/>
+                                    <outlet property="peerDisplayNameLabel" destination="v39-o0-GSv" id="MC5-Jt-XmF"/>
                                     <outlet property="profileImage" destination="ANh-Y1-EPm" id="hbN-C4-iaF"/>
                                     <segue destination="IvW-Mx-KMT" kind="push" identifier="ChatWithPeer" id="Cvw-pU-pVX"/>
                                 </connections>

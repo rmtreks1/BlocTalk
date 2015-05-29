@@ -74,6 +74,7 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         let conversationText = conversation?.first?.text
         
         cell.conversationLabel.text = conversationText!
+        cell.peerDisplayNameLabel.text = peerID.displayName
         
         return cell
     }
