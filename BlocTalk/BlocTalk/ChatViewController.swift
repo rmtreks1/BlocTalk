@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ChatViewController: JSQMessagesViewController {
     
     var chatData: [JSQMessage]?
-    var peerID: String?
+    var peerID: MCPeerID?
     
     
     override func viewDidLoad() {
@@ -23,9 +24,9 @@ class ChatViewController: JSQMessagesViewController {
         self.senderDisplayName = "roshan m"
 
         if let tempPeerID = self.peerID {
-            self.navigationItem.title = tempPeerID // replace this with the peerID display name
+            self.navigationItem.title = tempPeerID.displayName // replace this with the peerID display name
         } else {
-            self.peerID = ""
+            self.peerID = MCPeerID()
         }
         
         

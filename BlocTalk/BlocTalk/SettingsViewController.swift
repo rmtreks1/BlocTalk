@@ -62,7 +62,7 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func createFakeData(sender: UIButton) {
-        TestData.sharedInstance.createDemoData(self.fakePeer.text)
+//        TestData.sharedInstance.createDemoData(self.fakePeer.text)
     }
     
     

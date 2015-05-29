@@ -169,6 +169,11 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     
     func didConnectToPeer(peerID: MCPeerID) {
         println("connected to peer")
+        
+        // create a test conversation
+        TestData.sharedInstance.createDemoData(peerID)
+        
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 

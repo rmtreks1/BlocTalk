@@ -38,7 +38,7 @@ class TestData: NSObject {
     }
     
     
-    func createDemoData(fakePeer: String){
+    func createDemoData(fakePeer: MCPeerID){
         // text messages
         
         let message1 = JSQMessage(senderId: "rmtreks", displayName: "roshan m", text: "hello world!")
