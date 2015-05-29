@@ -17,12 +17,17 @@ class ChatViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        println("view did load")
+
         
-        
+       
         // must set up SenderID and SenderDisplayName
         self.senderId = "rmtreks"
         self.senderDisplayName = "roshan m"
-
+        
+        loadChatData()
+        
+       /*
         if let tempPeerID = self.peerID {
             self.navigationItem.title = tempPeerID.displayName // replace this with the peerID display name
         } else {
@@ -36,20 +41,54 @@ class ChatViewController: JSQMessagesViewController {
             chatData = []
         }
         
-        
+        */
 //        chatData = TestData.sharedInstance.allMessages["monk"]
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    func loadChatData(){
+        // must set up SenderID and SenderDisplayName
+        
+        if let tempPeerID = self.peerID {
+            self.navigationItem.title = tempPeerID.displayName // replace this with the peerID display name
+        } else {
+            self.peerID = MCPeerID()
+        }
+        
+        
+        if let tempChatData = DataSource.sharedInstance.allMessages[self.peerID!]{
+            chatData = tempChatData
+        } else {
+            chatData = []
+        }
+    }
+    
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        println("view will appear")
+        self.collectionView.reloadData()
+    }
+    
+    
+    
+    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        println("view did appear")
+        
+//        loadChatData()
+//        self.collectionView.reloadData()
         
         self.collectionView.collectionViewLayout.springinessEnabled = false
         

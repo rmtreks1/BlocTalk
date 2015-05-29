@@ -122,8 +122,6 @@ class DataSource: NSObject {
     }
     
     
-    
-    
     func populateAllPeers(){
         
         for peer in availablePeers {
@@ -131,6 +129,14 @@ class DataSource: NSObject {
         }
     }
     
+    
+    
+    func receivedMessage (peerID: MCPeerID, message: JSQMessage){
+        allMessages[peerID]?.append(message)
+        
+        // how to let ChatVC know
+        // maybe register for notifications?
+    }
     
   
 }
