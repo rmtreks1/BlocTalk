@@ -29,7 +29,7 @@ class TestData: NSObject {
     override init () {
         super.init()
         
-        createDemoData()
+        
         createMessageBubbles()
         createAvatar()
         
@@ -38,7 +38,7 @@ class TestData: NSObject {
     }
     
     
-    func createDemoData(){
+    func createDemoData(fakePeer: String){
         // text messages
         
         let message1 = JSQMessage(senderId: "rmtreks", displayName: "roshan m", text: "hello world!")
@@ -70,7 +70,7 @@ class TestData: NSObject {
         messages.append(photoMessage)
         
         
-        DataSource.sharedInstance.allMessages["sub"] = messages
+        DataSource.sharedInstance.allMessages[fakePeer] = messages
         
         println("created demo data")
         

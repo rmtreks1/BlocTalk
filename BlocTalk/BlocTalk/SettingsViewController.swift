@@ -18,6 +18,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet var profileImage: UIImageView!
     
     
+    // for creating fake peer - delete later
+    @IBOutlet var fakePeer: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,6 +70,13 @@ class SettingsViewController: UIViewController {
         displaySettingsView.hidden = !discoverableSwitch.on
         DataSource.sharedInstance.changeDiscoverability(sender.on)
     }
+    
+    
+    @IBAction func createFakeData(sender: UIButton) {
+        TestData.sharedInstance.createDemoData(self.fakePeer.text)
+    }
+    
+    
     
 
 }

@@ -24,7 +24,7 @@ class ChatViewController: JSQMessagesViewController {
         self.peerID = "sub"
         
         // creating test data
-        TestData.sharedInstance.createDemoData()
+//        TestData.sharedInstance.createDemoData()
         
         if let tempChatData = DataSource.sharedInstance.allMessages[self.peerID!]{
             chatData = tempChatData
