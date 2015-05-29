@@ -119,20 +119,30 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     
     // MARK: - MCSessionDelegate
-    func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
+    func session(session: MCSession!, didReceiveData messageData: NSData!, fromPeer peerID: MCPeerID!) {
         println("did receive data")
-        let testMessage = NSString(data: data, encoding: NSUTF8StringEncoding)
-        println(testMessage)
         
-        let conversation = Conversations()
-        conversation.conversationText = testMessage as? String
-        
-        DataSource.sharedInstance.allConversations.append(conversation)
-        
+        if let tempMessage: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData(messageData){
+            if tempMessage.isKindOfClass(JSQMessage) {
+                let message = tempMessage as! JSQMessage
+                println(message.text)
+            }
+            
+            
+            // move this to separate function
+            
+            
+            
+        }
         self.delegate?.didReceiveMessage()
-        
-        
     }
+    
+    
+    
+    
+    
+    
+    
     
     func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) {
         
@@ -151,7 +161,6 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
 //            DataSource.sharedInstance.connectedToPeer(peerID)
-            fakeConversation(peerID)
             self.delegate?.didConnectToPeer(peerID)
             
             
@@ -178,19 +187,6 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     //MARK: - Chat
     func fakeConversation (peerID: MCPeerID){
-        
-        // test data
-        let testMessage = "Hi is this working?" as NSString
-        let testData = testMessage.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        var error: NSError?
-        
-        var result = self.session.sendData(testData!, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error)
-        
-        if let actualError = error {
-            println("there was an error")
-            // remove message from UI or prompt to resend
-        }
     }
     
     
