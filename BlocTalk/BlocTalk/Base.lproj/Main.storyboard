@@ -44,7 +44,7 @@
                                 <connections>
                                     <outlet property="conversationLabel" destination="e0r-2k-VS6" id="0ZA-s8-R4A"/>
                                     <outlet property="profileImage" destination="ANh-Y1-EPm" id="hbN-C4-iaF"/>
-                                    <segue destination="IvW-Mx-KMT" kind="push" id="Cvw-pU-pVX"/>
+                                    <segue destination="IvW-Mx-KMT" kind="push" identifier="ChatWithPeer" id="Cvw-pU-pVX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -93,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0N-FU-KXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="299" y="961"/>
+            <point key="canvasLocation" x="125" y="1103"/>
         </scene>
         <!--Settings-->
         <scene sceneID="VV6-oo-lcO">

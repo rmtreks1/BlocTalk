@@ -148,5 +148,16 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     
     
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ChatWithPeer"{
+            let cell = sender as! UITableViewCell
+            let indexPath = self.tableView.indexPathForCell(cell)
+            let peer = DataSource.sharedInstance.allMessagesPeers[indexPath!.row]
+            println("chatting with peer \(peer)")
+            
+        }
+    }
+    
+    
     
 }
