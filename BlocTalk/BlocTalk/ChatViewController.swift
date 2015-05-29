@@ -26,25 +26,8 @@ class ChatViewController: JSQMessagesViewController {
         self.senderDisplayName = "roshan m"
         
         loadChatData()
+     
         
-       /*
-        if let tempPeerID = self.peerID {
-            self.navigationItem.title = tempPeerID.displayName // replace this with the peerID display name
-        } else {
-            self.peerID = MCPeerID()
-        }
-        
-        
-        if let tempChatData = DataSource.sharedInstance.allMessages[self.peerID!]{
-            chatData = tempChatData
-        } else {
-            chatData = []
-        }
-        
-        */
-//        chatData = TestData.sharedInstance.allMessages["monk"]
-
-        // Do any additional setup after loading the view.
     }
     
     
@@ -53,6 +36,7 @@ class ChatViewController: JSQMessagesViewController {
         
         if let tempPeerID = self.peerID {
             self.navigationItem.title = tempPeerID.displayName // replace this with the peerID display name
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedNewMessage", name: self.peerID?.displayName, object: nil)
         } else {
             self.peerID = MCPeerID()
         }
@@ -236,6 +220,24 @@ class ChatViewController: JSQMessagesViewController {
         
         if let tempPeerID = self.peerID {
             DataSource.sharedInstance.allMessages[self.peerID!] = self.chatData
+        }
+        
+    }
+    
+    
+    func receivedNewMessage(){
+        
+        println("chatVC received new message")
+        
+        if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
+            for index in 0...newMessage.count-1 {
+                let message = newMessage[index] as JSQMessage
+                println("chatVC message is \(message.text)")
+                self.chatData!.append(message)
+            }
+            
+            DataSource.sharedInstance.receivedMessages[self.peerID!] = []
+//            self.collectionView.reloadData()
         }
         
     }

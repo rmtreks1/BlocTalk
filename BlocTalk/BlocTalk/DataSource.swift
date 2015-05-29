@@ -45,6 +45,9 @@ class DataSource: NSObject {
     var allMessages = [MCPeerID: [JSQMessage]]() // replace String with MCPeerID
     var allMessagesPeers:[MCPeerID] = [] // replace String with MCPeerID
     
+    var receivedMessages = [MCPeerID: [JSQMessage]]()
+    
+    
     var delegate: DataSourceDelegate?
     
     
@@ -132,7 +135,14 @@ class DataSource: NSObject {
     
     
     func receivedMessage (peerID: MCPeerID, message: JSQMessage){
-        allMessages[peerID]?.append(message)
+//        allMessages[peerID]?.append(message)
+        println("datasource receivedMessage, \(message.text)")
+        var messageArray = [message]
+        
+        receivedMessages[peerID] = messageArray
+
+        NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
+        
         
         // how to let ChatVC know
         // maybe register for notifications?

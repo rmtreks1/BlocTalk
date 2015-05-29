@@ -126,6 +126,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
             if tempMessage.isKindOfClass(JSQMessage) {
                 let message = tempMessage as! JSQMessage
                 println(message.text)
+                DataSource.sharedInstance.receivedMessage(peerID, message: message)
             }
             
             
