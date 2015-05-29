@@ -194,4 +194,19 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     
+    func sendMessage (peerID: MCPeerID, message: JSQMessage) {
+        
+        let messageData = NSKeyedArchiver.archivedDataWithRootObject(message)
+        var error: NSError?
+        
+        var result = self.session.sendData(messageData, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if let actualError = error {
+            println("there was an error")
+            // remove message from UI or prompt to resend
+        }
+        
+    }
+    
+    
 }

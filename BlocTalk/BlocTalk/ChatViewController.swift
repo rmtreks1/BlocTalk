@@ -147,6 +147,8 @@ class ChatViewController: JSQMessagesViewController {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         println(message.text)
         
+        MPCManager.sharedInstance.sendMessage(self.peerID!, message: message)
+        
         
         chatData!.append(message)
         
