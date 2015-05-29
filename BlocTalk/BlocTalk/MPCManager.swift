@@ -183,8 +183,14 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         let testMessage = "Hi is this working?" as NSString
         let testData = testMessage.dataUsingEncoding(NSUTF8StringEncoding)
         
-        self.session.sendData(testData!, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: nil)
+        var error: NSError?
         
+        var result = self.session.sendData(testData!, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if let actualError = error {
+            println("there was an error")
+            // remove message from UI or prompt to resend
+        }
     }
     
     
