@@ -11,7 +11,7 @@
 import UIKit
 import MultipeerConnectivity
 
-
+//MARK: Protocol
 protocol DataSourceDelegate {
     
     func userStatusChange (user: User, index: Int)
@@ -23,6 +23,7 @@ protocol DataSourceDelegate {
 
 class DataSource: NSObject {
     
+    //MARK: - Variables
     
     enum UserStatus {
         case Online
@@ -48,12 +49,12 @@ class DataSource: NSObject {
     
     
     
-    override init(){
-        super.init()
-        
-//        retrieveUserSettings()
-        
-    }
+//    override init(){
+//        super.init()
+//        
+//
+//        
+//    }
     
     
     
@@ -114,37 +115,7 @@ class DataSource: NSObject {
             println("turn off advertising")
         }
     }
-    
-    
-    // MARK: - Multipeer Connectivity
-   
-    /*
-    func connectedToPeer (peerID: MCPeerID){
-        // receives the peer id - checks whether its already in array of available peers and if yes, updates status of the user to available
-        if contains(availablePeers, peerID){
-            println("peer previously found")
-            for index in 0...allUsers.count-1 {
-                let user = allUsers[index]
-                if user.peerID == peerID {
-                    user.status = true
-                    allUsers[index] = user
-                    self.delegate?.userStatusChange(user, index: index)
-                }
-            }
-        } else {
-            availablePeers.append(peerID)
-            let newUser = User()
-            newUser.peerID = peerID
-            newUser.status = true
-            allUsers.append(newUser)
-
-        }
-        self.delegate?.changeInUserConnections()
-        println("available peers \(availablePeers)")
-        println("all users: \(allUsers)")
-    }
-    */
-    
+ 
     
     func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus){
         
@@ -163,29 +134,8 @@ class DataSource: NSObject {
         let settings = NSUserDefaults.standardUserDefaults()
         let availablePeersData =  NSKeyedArchiver.archivedDataWithRootObject(self.availablePeers)
         settings.setObject(availablePeersData, forKey: "availablePeers")
-        
-        /*
-        // this code is for testing that correct UserStatus is coming through. Uncomment to test.
-        let userStatusString = allPeers[peerID]!
-        switch userStatusString {
-        case .Online:
-            println("test of function foundPeer. peer status is Online")
-        
-        case .Offline:
-            println("test of function foundPeer. peer status is Offline")
-        }
-        */
-        
-        
+       
     }
     
-    
-    
-    func lostPeer (peerID: MCPeerID){
-    }
-    
-    
-    func ignorePeer (peerID: MCPeerID){
-    }
-   
+  
 }

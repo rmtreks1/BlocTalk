@@ -12,6 +12,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    //MARK: - Properties
     @IBOutlet var discoverableSwitch: UISwitch!
     @IBOutlet var displaySettingsView: UIView!
     @IBOutlet var displayNameTextField: UITextField!
@@ -21,6 +22,7 @@ class SettingsViewController: UIViewController {
     // for creating fake peer - delete later
     @IBOutlet var fakePeer: UITextField!
     
+    //MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,17 +39,8 @@ class SettingsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    
+    //MARK: - Actions
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
@@ -61,10 +54,6 @@ class SettingsViewController: UIViewController {
         DataSource.sharedInstance.saveUserSettings()
         
     }
-    
-    
-    
-    
     
     @IBAction func discoverableSwitchChanged(sender: UISwitch) {
         displaySettingsView.hidden = !discoverableSwitch.on
