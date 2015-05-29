@@ -21,10 +21,13 @@ class ChatViewController: JSQMessagesViewController {
         // must set up SenderID and SenderDisplayName
         self.senderId = "rmtreks"
         self.senderDisplayName = "roshan m"
-//        self.peerID = "sub"
+
+        if let tempPeerID = self.peerID {
+            self.navigationItem.title = tempPeerID // replace this with the peerID display name
+        } else {
+            self.peerID = ""
+        }
         
-        // creating test data
-//        TestData.sharedInstance.createDemoData()
         
         if let tempChatData = DataSource.sharedInstance.allMessages[self.peerID!]{
             chatData = tempChatData

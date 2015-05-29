@@ -83,13 +83,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="p9u-oF-p35">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="3RC-gg-vNN">
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="IvW-Mx-KMT" id="4tf-dc-mFL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="p9u-oF-p35"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0N-FU-KXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
