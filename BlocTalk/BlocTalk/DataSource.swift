@@ -23,7 +23,7 @@ protocol DataSourceDelegate {
 
 class DataSource: NSObject {
     
-    //MARK: - Variables
+    //MARK: - Properties
     
     enum UserStatus {
         case Online
@@ -46,16 +46,6 @@ class DataSource: NSObject {
     var allMessagesPeers:[String] = [] // replace String with MCPeerID
     
     var delegate: DataSourceDelegate?
-    
-    
-    
-//    override init(){
-//        super.init()
-//        
-//
-//        
-//    }
-    
     
     
     //MARK: - Settings
@@ -82,15 +72,7 @@ class DataSource: NSObject {
         println("available peers: \(self.availablePeers)")
     }
     
-    
-    func populateAllPeers(){
-        
-        for peer in availablePeers {
-            allPeers[peer] = UserStatus.Unknown
-        }
-    }
-    
-    
+   
     
     func saveUserSettings(){
         let settings = NSUserDefaults.standardUserDefaults()
@@ -117,6 +99,8 @@ class DataSource: NSObject {
     }
  
     
+    //MARK: - Peers
+    
     func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus){
         
         // if the user already exists then update status
@@ -136,6 +120,17 @@ class DataSource: NSObject {
         settings.setObject(availablePeersData, forKey: "availablePeers")
        
     }
+    
+    
+    
+    
+    func populateAllPeers(){
+        
+        for peer in availablePeers {
+            allPeers[peer] = UserStatus.Unknown
+        }
+    }
+    
     
   
 }
