@@ -155,6 +155,9 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
             let peer = DataSource.sharedInstance.allMessagesPeers[indexPath!.row]
             println("chatting with peer \(peer)")
             
+            if let chatVC = segue.destinationViewController as? ChatViewController{
+                chatVC.peerID = peer
+            }
         }
     }
     

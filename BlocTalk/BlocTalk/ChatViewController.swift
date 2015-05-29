@@ -21,7 +21,7 @@ class ChatViewController: JSQMessagesViewController {
         // must set up SenderID and SenderDisplayName
         self.senderId = "rmtreks"
         self.senderDisplayName = "roshan m"
-        self.peerID = "sub"
+//        self.peerID = "sub"
         
         // creating test data
 //        TestData.sharedInstance.createDemoData()
@@ -51,6 +51,11 @@ class ChatViewController: JSQMessagesViewController {
         
     }
     
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveChat()
+    }
     
     
     // MARK: - JSQMessagesCollectionViewDataSource Protocol
@@ -180,5 +185,15 @@ class ChatViewController: JSQMessagesViewController {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+    func saveChat(){
+        
+        if let tempPeerID = self.peerID {
+            DataSource.sharedInstance.allMessages[self.peerID!] = self.chatData
+        }
+        
+    }
+    
    
 }
