@@ -261,6 +261,11 @@
                                 <action selector="cancelButtonPressed:" destination="ZVc-7y-tgp" id="oOL-7N-U2R"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Duplications" id="LAD-Gv-ssT">
+                            <connections>
+                                <action selector="lookForDuplicates:" destination="ZVc-7y-tgp" id="M2C-6q-xWS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ip9-3k-fxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
