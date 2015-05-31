@@ -27,7 +27,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         // retrieve saved settings.
-        DataSource.sharedInstance.retrieveUserSettings()
+//        DataSource.sharedInstance.retrieveUserSettings() // bug - was loading up settings before saving them so label wasn't being saved
         discoverableSwitch.on = DataSource.sharedInstance.discoverable
         displaySettingsView.hidden = !discoverableSwitch.on
         displayNameTextField.text = DataSource.sharedInstance.displayName
@@ -45,9 +45,10 @@ class SettingsViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         // save settings
-//        DataSource.sharedInstance.discoverable = discoverableSwitch.on
+        DataSource.sharedInstance.discoverable = discoverableSwitch.on
         
         if displayNameTextField.text != nil {
+            println(displayNameTextField.text)
             DataSource.sharedInstance.displayName = displayNameTextField.text!
         }
         
