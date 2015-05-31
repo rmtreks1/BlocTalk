@@ -182,6 +182,30 @@ class ChatViewController: JSQMessagesViewController {
         println("camera button pressed - finish this function")
     }
     
+    
+    
+    func receivedNewMessage(){
+        
+        println("chatVC received new message")
+        
+        if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
+            for index in 0...newMessage.count-1 {
+                let message = newMessage[index] as JSQMessage
+                
+                
+                println("chatVC message is \(message.text)")
+                self.chatData!.append(message)
+                
+                
+                println("need to refresh the fucking controller")
+                
+                self.finishReceivingMessage()
+            }
+            
+            DataSource.sharedInstance.receivedMessages[self.peerID!] = []
+        }
+        
+    }
         
     
     // MARK: - UICollectionView DataSource
@@ -222,36 +246,6 @@ class ChatViewController: JSQMessagesViewController {
     }
     
     
-    func receivedNewMessage(){
-        
-        println("chatVC received new message")
-        
-        if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
-            for index in 0...newMessage.count-1 {
-                let message = newMessage[index] as JSQMessage
-                
-
-                println("chatVC message is \(message.text)")
-                self.chatData!.append(message)
-
-
-                println("need to refresh the fucking controller")
-                
-                self.finishReceivingMessage()
-            }
-            
-            DataSource.sharedInstance.receivedMessages[self.peerID!] = []
-            
-
-            
-
-            
-//            self.finishReceivingMessage()
-            
-//            - (void)finishReceivingMessage
-        }
-        
-    }
     
    
 }
