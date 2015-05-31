@@ -45,7 +45,15 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         
 
         // comment this out if want control of advertiser, otherwise leave commented out as using assistant
-        advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: serviceType)
+        
+        if let tempUniqueID = DataSource.sharedInstance.uniqueID {
+        } else {
+            DataSource.sharedInstance.makeUniqueID()
+        }
+        
+        let discoveryInfo = ["uniqueID":DataSource.sharedInstance.uniqueID!]
+        
+        advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
         advertiser.delegate = self
 
 
@@ -87,8 +95,14 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         println("found peer \(peerID)")
         
+        var uniqueID = ""
+        if let tempDiscoveryInfo = info as? [String: AnyObject] {
+            uniqueID = tempDiscoveryInfo["uniqueID"] as! String
+        }
         
-        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online) // test function
+        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online, uniqueID: uniqueID)
+        
+//        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online, ) // test function
         
         // check if peer not already in list
         if !contains(availablePeers, peerID) {
@@ -107,7 +121,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         
         println("lost peer \(peerID)")
         
-        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline)
+        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline, uniqueID: "")
+//        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline)
         
         for (index,value) in enumerate(availablePeers) {
             if value == peerID {

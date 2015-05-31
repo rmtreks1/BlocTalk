@@ -42,6 +42,7 @@ class DataSource: NSObject {
     var availablePeers: [MCPeerID] = []
     var allUsers: [User] = []
     var allPeers = [MCPeerID: UserStatus]() // creates a dictionary to make it easier to do searches
+    var allPeersUniqueID = [String: MCPeerID]()
     
     var allMessages = [MCPeerID: [JSQMessage]]() // replace String with MCPeerID
     var allMessagesPeers:[MCPeerID] = [] // replace String with MCPeerID
@@ -144,7 +145,8 @@ class DataSource: NSObject {
     
     //MARK: - Peers
     
-    func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus){
+    func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus, uniqueID: String){
+        
         
         // if the user already exists then update status
         if let peerStatus = allPeers[peerID] {
@@ -153,6 +155,61 @@ class DataSource: NSObject {
         
             // else insert the user into both the dictionary and the array used as the dataSource for Peers TBVC
         else {
+            
+            // if its online
+            if userStatus == UserStatus.Online {
+                if let previousPeerID = allPeersUniqueID[uniqueID]{
+                    allPeersUniqueID[uniqueID] = peerID
+                    
+                    // remove the previousPeerID
+                    for (index,value) in enumerate(allPeers) {
+                        if value.0 == previousPeerID {
+                            allPeers.removeValueForKey(previousPeerID)
+                        }
+                    }
+                    
+                    
+                    // remove from availablePeers
+                    for (index,value) in enumerate(availablePeers) {
+                        if value == previousPeerID {
+                            availablePeers.removeAtIndex(index)
+                        }
+                    }
+                    
+                    
+                    // remove from allMessagesPeers
+                    for (index,value) in enumerate(allMessagesPeers) {
+                        if value == previousPeerID {
+                            availablePeers.removeAtIndex(index)
+                        }
+                    }
+                    
+                    
+                    // replace the peerID in allMessages = [MCPeerID: [JSQMessage]]
+                    for (index,value) in enumerate(allMessages) {
+                        if value.0 == previousPeerID {
+                            let messages = value.1
+                            allMessages.removeValueForKey(previousPeerID)
+                            allMessages[peerID] = messages
+//                            allPeers.removeValueForKey(previousPeerID)
+                        }
+                    }
+
+                    
+                    // replace the peerID in receivedMessages = [MCPeerID: [JSQMessage]]
+                    for (index,value) in enumerate(receivedMessages) {
+                        if value.0 == previousPeerID {
+                            let messages = value.1
+                            receivedMessages.removeValueForKey(previousPeerID)
+                            receivedMessages[peerID] = messages
+                            //                            allPeers.removeValueForKey(previousPeerID)
+                        }
+                    }
+                    
+                }
+            }
+            
+            
             allPeers[peerID] = userStatus
             availablePeers.append(peerID)
         }
