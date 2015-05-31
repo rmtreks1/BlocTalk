@@ -60,7 +60,7 @@ class ChatViewController: JSQMessagesViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         println("view will appear")
-        self.collectionView.reloadData()
+//        self.collectionView.reloadData()
     }
     
     
@@ -70,9 +70,6 @@ class ChatViewController: JSQMessagesViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         println("view did appear")
-        
-//        loadChatData()
-//        self.collectionView.reloadData()
         
         self.collectionView.collectionViewLayout.springinessEnabled = false
         
@@ -232,14 +229,26 @@ class ChatViewController: JSQMessagesViewController {
         if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
             for index in 0...newMessage.count-1 {
                 let message = newMessage[index] as JSQMessage
+                
+
                 println("chatVC message is \(message.text)")
                 self.chatData!.append(message)
+
+
+                println("need to refresh the fucking controller")
+                
+                self.finishReceivingMessage()
             }
             
             DataSource.sharedInstance.receivedMessages[self.peerID!] = []
             
-            println("need to refresh the fucking controller")
-//            self.collectionView.reloadData()
+
+            
+
+            
+//            self.finishReceivingMessage()
+            
+//            - (void)finishReceivingMessage
         }
         
     }
