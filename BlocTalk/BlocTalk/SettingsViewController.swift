@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController {
             DataSource.sharedInstance.displayName = displayNameTextField.text!
         }
         
-        DataSource.sharedInstance.saveUserSettings()
+
         
     }
     

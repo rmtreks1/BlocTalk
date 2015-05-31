@@ -237,6 +237,8 @@ class ChatViewController: JSQMessagesViewController {
             }
             
             DataSource.sharedInstance.receivedMessages[self.peerID!] = []
+            
+            println("need to refresh the fucking controller")
 //            self.collectionView.reloadData()
         }
         

@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         DataSource.sharedInstance.retrieveUserSettings()
+        DataSource.sharedInstance.retrieveMessages()
         MPCManager.sharedInstance.startBrowsingForPeers()
         
         return true
@@ -31,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        // save messages
+        DataSource.sharedInstance.saveMessages()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

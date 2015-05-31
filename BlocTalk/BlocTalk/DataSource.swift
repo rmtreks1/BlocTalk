@@ -152,10 +152,6 @@ class DataSource: NSObject {
         receivedMessages[peerID] = messageArray
 
         NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
-        
-        
-        // how to let ChatVC know
-        // maybe register for notifications?
     }
     
     
