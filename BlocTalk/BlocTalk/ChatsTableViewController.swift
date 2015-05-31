@@ -34,6 +34,7 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
             DataSource.sharedInstance.allMessagesPeers.append(peerID)
         }
         
+        DataSource.sharedInstance.retrieveMessages()
         
         
         self.tableView.reloadData()

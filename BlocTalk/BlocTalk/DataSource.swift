@@ -73,7 +73,11 @@ class DataSource: NSObject {
         }
         println("***** retrieving settings *****")
         println("available peers: \(self.availablePeers)")
+        
     }
+
+    
+    
     
    
     
@@ -88,6 +92,10 @@ class DataSource: NSObject {
             settings.setValue(UIDevice.currentDevice().name, forKey: "displayName")
             println("display name is empty")
         }
+        
+        // move this code to all closing or something
+        saveMessages()
+        
     }
     
     
@@ -134,6 +142,8 @@ class DataSource: NSObject {
     
     
     
+    //MARK: - Messages
+    
     func receivedMessage (peerID: MCPeerID, message: JSQMessage){
 //        allMessages[peerID]?.append(message)
         println("datasource receivedMessage, \(message.text)")
@@ -147,6 +157,49 @@ class DataSource: NSObject {
         // how to let ChatVC know
         // maybe register for notifications?
     }
+    
+    
+    func saveMessages(){
+        
+        println("saving messages")
+        
+        let settings = NSUserDefaults.standardUserDefaults()
+        let allMessagesData = NSKeyedArchiver.archivedDataWithRootObject(self.allMessages)
+        let allMessagesPeersData = NSKeyedArchiver.archivedDataWithRootObject(self.allMessagesPeers)
+        settings.setObject(allMessagesData, forKey: "allMessages")
+        settings.setObject(allMessagesPeersData, forKey: "allMessagesPeers")
+    }
+    
+    
+    func retrieveMessages(){
+        let settings = NSUserDefaults.standardUserDefaults()
+        
+        if let tempAllMessagesData: AnyObject = settings.objectForKey("allMessages") {
+            self.allMessages = (NSKeyedUnarchiver.unarchiveObjectWithData(tempAllMessagesData as! NSData) as? [MCPeerID: [JSQMessage]])!
+        }
+        
+        if let tempAllMessagesPeersData: AnyObject = settings.objectForKey("allMessagesPeers") {
+            self.allMessagesPeers = NSKeyedUnarchiver.unarchiveObjectWithData(tempAllMessagesPeersData as! NSData) as! [MCPeerID]
+        }
+        
+        
+        
+        
+        
+        if let tempAvailablePeersData = settings.objectForKey("availablePeers") as? NSData {
+            self.availablePeers = (NSKeyedUnarchiver.unarchiveObjectWithData(tempAvailablePeersData) as? [MCPeerID])!
+            populateAllPeers()
+        }
+        
+        self.discoverable = settings.boolForKey("discoverable")
+        
+        if let displayNameSettings = settings.valueForKey("displayName") as? String{
+            self.displayName = displayNameSettings
+            println("displayName retrieved")
+        }
+
+    }
+    
     
   
 }
