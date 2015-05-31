@@ -34,6 +34,7 @@ class DataSource: NSObject {
     
     
     static let sharedInstance = DataSource()
+    var uniqueID: String?
     var discoverable: Bool = false // by default users are discoverable
     var displayName: String = UIDevice.currentDevice().name
     var displayImage: UIImage?
@@ -71,6 +72,12 @@ class DataSource: NSObject {
             println("start advertisng availability")
             MPCManager.sharedInstance.startAdvertisingForPeers()
         }
+        
+        
+        if let tempUniqueID = settings.valueForKey("uniqueID") as? String {
+            self.uniqueID = tempUniqueID
+        }
+        
         println("***** retrieving settings *****")
         println("available peers: \(self.availablePeers)")
         
@@ -82,8 +89,17 @@ class DataSource: NSObject {
    
     
     func saveUserSettings(){
+        println("saving user settings")
         let settings = NSUserDefaults.standardUserDefaults()
         settings.setBool(discoverable, forKey: "discoverable")
+        
+        if let tempUniqueID = self.uniqueID{
+        } else {
+            makeUniqueID()
+        }
+        settings.setObject(self.uniqueID!, forKey: "uniqueID")
+
+        
         
         if self.displayName != "" {
             settings.setValue(displayName, forKey: "displayName")
@@ -94,7 +110,7 @@ class DataSource: NSObject {
         }
         
         // move this code to all closing or something
-        saveMessages()
+//        saveMessages()
         
     }
     
@@ -103,12 +119,28 @@ class DataSource: NSObject {
         println("discoverability \(discoverable)")
         self.discoverable = discoverable
         if discoverable {
+            
+            if let tempUniqueID = self.uniqueID{
+            } else {
+                makeUniqueID()
+            }
             MPCManager.sharedInstance.startAdvertisingForPeers()
+            
         } else {
             println("turn off advertising")
+            MPCManager.sharedInstance.stopAdvertisingForPeers()
         }
+        
+        saveUserSettings()
     }
  
+    
+    func makeUniqueID(){
+        self.uniqueID = NSUUID().UUIDString
+        println(self.uniqueID)
+    }
+    
+    
     
     //MARK: - Peers
     

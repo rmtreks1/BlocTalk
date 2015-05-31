@@ -45,7 +45,7 @@ class SettingsViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         // save settings
-        DataSource.sharedInstance.discoverable = discoverableSwitch.on
+//        DataSource.sharedInstance.discoverable = discoverableSwitch.on
         
         if displayNameTextField.text != nil {
             DataSource.sharedInstance.displayName = displayNameTextField.text!

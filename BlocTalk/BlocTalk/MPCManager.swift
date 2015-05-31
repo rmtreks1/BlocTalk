@@ -66,6 +66,11 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         println("started advertising for peers")
     }
     
+    func stopAdvertisingForPeers(){
+        self.advertiser.stopAdvertisingPeer()
+        println("stopped advertising for peers")
+    }
+    
     
     
     

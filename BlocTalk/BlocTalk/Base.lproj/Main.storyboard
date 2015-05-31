@@ -26,8 +26,8 @@
                                                 <constraint firstAttribute="height" constant="65" id="qbS-Kf-0cl"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0r-2k-VS6">
-                                            <rect key="frame" x="95" y="32" width="184" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0r-2k-VS6">
+                                            <rect key="frame" x="95" y="36" width="184" height="17"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="3PV-pd-8AP"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -326,25 +326,6 @@
             </objects>
             <point key="canvasLocation" x="809" y="-520"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Rck-Ah-lPW">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XIQ-31-Fvh" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="beR-N2-FK7"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Og3-RT-L3y">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="IvW-Mx-KMT" kind="relationship" relationship="rootViewController" id="3yt-8M-FGl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Goc-8h-o6w" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="971" y="779"/>
-        </scene>
     </scenes>
     <resources>
         <image name="sampleProfileImage.jpg" width="2000" height="1805"/>
@@ -355,7 +336,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="Cvw-pU-pVX"/>
-    </inferredMetricsTieBreakers>
 </document>
