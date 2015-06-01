@@ -34,23 +34,29 @@ class DataSource: NSObject {
     
     
     static let sharedInstance = DataSource()
-    var uniqueID: String?
+    
+    
+    var uniqueID: String? // way around the problem where PeerID keeps changing
     var discoverable: Bool = false // by default users are discoverable
     var displayName: String = UIDevice.currentDevice().name
     var displayImage: UIImage?
-    var allConversations: [Conversations] = []
+    
+
     var availablePeers: [MCPeerID] = []
-    var allUsers: [User] = []
     var allPeers = [MCPeerID: UserStatus]() // creates a dictionary to make it easier to do searches
     var allPeersUniqueID = [String: MCPeerID]()
     
     var allMessages = [MCPeerID: [JSQMessage]]() // replace String with MCPeerID
     var allMessagesPeers:[MCPeerID] = [] // replace String with MCPeerID
-    
-    var receivedMessages = [MCPeerID: [JSQMessage]]()
+    var receivedMessages = [MCPeerID: [JSQMessage]]() // temporarily hold received messages
     
     
     var delegate: DataSourceDelegate?
+    
+    
+    // properties to delete
+    //    var allConversations: [Conversations] = [] // potentially not used
+    var allUsers: [User] = [] // can this be replaced by a store of connected peers(uniqueIDs).
     
     
     //MARK: - Settings
