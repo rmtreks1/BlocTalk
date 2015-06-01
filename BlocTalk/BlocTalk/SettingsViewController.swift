@@ -19,9 +19,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet var profileImage: UIImageView!
     
     
-    // for creating fake peer - delete later
-    @IBOutlet var fakePeer: UITextField!
-    
     //MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -179,13 +179,14 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
 
     
     
-    
+    /*
     @IBAction func lookForDuplicates(sender: UIBarButtonItem) {
         
         let uniqueAvailablePeers = uniq(DataSource.sharedInstance.availablePeers)
         println("count of unique peers: \(uniqueAvailablePeers.count) out of total available peers: \(DataSource.sharedInstance.availablePeers.count)")
         
     }
+    */
     
     func uniq<S : SequenceType, T : Hashable where S.Generator.Element == T>(source: S) -> [T] {
         var buffer = [T]()
@@ -198,12 +199,5 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         }
         return buffer
     }
-//    
-//    let vals = [1, 4, 2, 2, 6, 24, 15, 2, 60, 15, 6]
-//    let uniqueVals = uniq(vals) // [1, 4, 2, 6, 24, 15, 60]
-//    
-    
-    
-    
     
 }
