@@ -171,7 +171,9 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         println("connected to peer")
         
         // create a test conversation
-        TestData.sharedInstance.createDemoData(peerID)
+//        TestData.sharedInstance.createDemoData(peerID)
+        var messages = [JSQMessage]()
+        DataSource.sharedInstance.allMessages[peerID] = messages
         
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -186,7 +188,7 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         println("count of unique peers: \(uniqueAvailablePeers.count) out of total available peers: \(DataSource.sharedInstance.availablePeers.count)")
         
     }
-    */
+
     
     func uniq<S : SequenceType, T : Hashable where S.Generator.Element == T>(source: S) -> [T] {
         var buffer = [T]()
@@ -199,5 +201,6 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         }
         return buffer
     }
+    */
     
 }
