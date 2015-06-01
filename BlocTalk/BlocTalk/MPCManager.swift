@@ -86,8 +86,15 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
         println("received invite from \(peerID.displayName)")
 
+        if let uniqueID = DataSource.sharedInstance.tempPeersUniqueID[peerID]{
+            if contains(DataSource.sharedInstance.previouslyConnectedPeers, uniqueID){
+                println("accept this invite")
+                invitationHandler(true, MPCManager.sharedInstance.session)
+                return
+            }
+        }
+        
         self.delegate?.didReceiveInvitationFromPeer(peerID, invitationHandler: invitationHandler)
-
     }
     
     
