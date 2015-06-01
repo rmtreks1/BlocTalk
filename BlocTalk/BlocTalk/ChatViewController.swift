@@ -22,8 +22,14 @@ class ChatViewController: JSQMessagesViewController {
         
        
         // must set up SenderID and SenderDisplayName
-        self.senderId = "rmtreks"
-        self.senderDisplayName = "roshan m"
+        if let tempSenderId = DataSource.sharedInstance.uniqueID {
+            self.senderId = tempSenderId as String
+        } else {
+            DataSource.sharedInstance.makeUniqueID()
+            self.senderId = DataSource.sharedInstance.uniqueID! as String
+        }
+        
+        self.senderDisplayName = DataSource.sharedInstance.displayName
         
         loadChatData()
      
@@ -162,7 +168,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         
-        println("did press send button")
+        println("did press send button. Sender id is: \(senderId)")
         
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         println(message.text)
