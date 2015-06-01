@@ -101,8 +101,16 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         }
         
         DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online, uniqueID: uniqueID)
+        DataSource.sharedInstance.foundNewPeer(peerID, uniqueID: uniqueID)
         
-//        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online, ) // test function
+        // trial function - to build up an array of trusted peers to connect to
+        if DataSource.sharedInstance.autoConnectToPeer(peerID, uniqueID: uniqueID){
+            println("trust this peer")
+        } else {
+            println("don't know this person")
+//            DataSource.sharedInstance.
+        }
+        
         
         // check if peer not already in list
         if !contains(availablePeers, peerID) {
@@ -181,7 +189,7 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-//            DataSource.sharedInstance.connectedToPeer(peerID)
+            DataSource.sharedInstance.connectedToPeer(peerID)
             self.delegate?.didConnectToPeer(peerID)
             
             

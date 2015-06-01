@@ -50,6 +50,9 @@ class DataSource: NSObject {
     var allMessagesPeers:[MCPeerID] = [] // replace String with MCPeerID
     var receivedMessages = [MCPeerID: [JSQMessage]]() // temporarily hold received messages
     
+    var previouslyConnectedPeers = [String]() // store the unique ID as the Peer ID might keep changing
+    var tempPeersUniqueID = [MCPeerID : String]()
+    
     
     var delegate: DataSourceDelegate?
     
@@ -85,6 +88,11 @@ class DataSource: NSObject {
             self.uniqueID = tempUniqueID
         }
         
+        if let tempPreviouslyConnectedPeers = settings.valueForKey("previouslyConnectedPeers") as? [String]{
+            self.previouslyConnectedPeers = settings.valueForKey("previouslyConnectedPeers") as! [String]
+        }
+        
+        
         println("***** retrieving settings *****")
         println("available peers: \(self.availablePeers)")
         
@@ -115,6 +123,9 @@ class DataSource: NSObject {
             settings.setValue(UIDevice.currentDevice().name, forKey: "displayName")
             println("display name is empty")
         }
+        
+        settings.setObject(self.previouslyConnectedPeers, forKey: "previouslyConnectedPeers")
+        
         
         // move this code to all closing or something
 //        saveMessages()
@@ -226,6 +237,30 @@ class DataSource: NSObject {
         settings.setObject(availablePeersData, forKey: "availablePeers")
        
     }
+    
+    
+    
+    func autoConnectToPeer(peerID: MCPeerID, uniqueID: String) -> Bool{
+        
+        if contains(self.previouslyConnectedPeers, uniqueID) {
+            return true
+        }
+        return false
+    }
+    
+    
+    func connectedToPeer (peerID: MCPeerID){
+        if let uniqueID = self.tempPeersUniqueID[peerID]{
+            self.previouslyConnectedPeers.append(uniqueID)
+        }
+    }
+    
+    
+    func foundNewPeer (peerID: MCPeerID, uniqueID: String){
+        self.tempPeersUniqueID[peerID] = uniqueID
+    }
+    
+    
     
     
     func populateAllPeers(){

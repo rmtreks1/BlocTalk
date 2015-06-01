@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // save messages
         DataSource.sharedInstance.saveMessages()
+        DataSource.sharedInstance.saveUserSettings()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
