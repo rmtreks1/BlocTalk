@@ -31,7 +31,10 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         
         DataSource.sharedInstance.allMessagesPeers = []
         for (peerID, messages) in DataSource.sharedInstance.allMessages {
-            DataSource.sharedInstance.allMessagesPeers.append(peerID)
+            // check if peer has been archived
+            if !contains(DataSource.sharedInstance.archivedPeers, peerID){
+                DataSource.sharedInstance.allMessagesPeers.append(peerID)
+            }
         }
         self.tableView.reloadData()
     }

@@ -287,6 +287,13 @@ class DataSource: NSObject {
     }
     
     
+    // basic function - replace this with ability to select which peer to unarchive
+    func unarchivePeers(){
+        println("unarchive peers")
+        archivedPeers = []
+    }
+    
+    
     
     func populateAllPeers(){
         

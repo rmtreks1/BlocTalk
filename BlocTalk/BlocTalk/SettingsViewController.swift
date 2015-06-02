@@ -64,6 +64,9 @@ class SettingsViewController: UIViewController {
     }
     
     
+    @IBAction func unArchiveButtonPressed(sender: UIButton) {
+        DataSource.sharedInstance.unarchivePeers()
+    }
     
 
 }
