@@ -213,22 +213,26 @@ class ChatViewController: JSQMessagesViewController {
         
         println("chatVC received new message")
         
-        if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
-            for index in 0...newMessage.count-1 {
-                let message = newMessage[index] as JSQMessage
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
+                for index in 0...newMessage.count-1 {
+                    let message = newMessage[index] as JSQMessage
+                    
+                    
+                    println("chatVC message is \(message.text)")
+                    self.chatData!.append(message)
+                    
+                    
+                    println("need to refresh the fucking controller")
+                    
+                    self.finishReceivingMessage()
+                }
                 
-                
-                println("chatVC message is \(message.text)")
-                self.chatData!.append(message)
-                
-                
-                println("need to refresh the fucking controller")
-                
-                self.finishReceivingMessage()
+                DataSource.sharedInstance.receivedMessages[self.peerID!] = []
             }
-            
-            DataSource.sharedInstance.receivedMessages[self.peerID!] = []
-        }
+        })
+        
+        
         
     }
         
