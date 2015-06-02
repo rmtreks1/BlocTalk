@@ -11,7 +11,7 @@
 import UIKit
 import MultipeerConnectivity
 
-
+//MARK: Protocol
 protocol DataSourceDelegate {
     
     func userStatusChange (user: User, index: Int)
@@ -23,6 +23,7 @@ protocol DataSourceDelegate {
 
 class DataSource: NSObject {
     
+    //MARK: - Properties
     
     enum UserStatus {
         case Online
@@ -33,25 +34,32 @@ class DataSource: NSObject {
     
     
     static let sharedInstance = DataSource()
+    
+    
+    var uniqueID: String? // way around the problem where PeerID keeps changing
     var discoverable: Bool = false // by default users are discoverable
     var displayName: String = UIDevice.currentDevice().name
     var displayImage: UIImage?
-    var allConversations: [Conversations] = []
+    
+
     var availablePeers: [MCPeerID] = []
-    var allUsers: [User] = []
     var allPeers = [MCPeerID: UserStatus]() // creates a dictionary to make it easier to do searches
+    var allPeersUniqueID = [String: MCPeerID]()
+    
+    var allMessages = [MCPeerID: [JSQMessage]]() // replace String with MCPeerID
+    var allMessagesPeers:[MCPeerID] = [] // replace String with MCPeerID
+    var receivedMessages = [MCPeerID: [JSQMessage]]() // temporarily hold received messages
+    
+    var previouslyConnectedPeers = [String]() // store the unique ID as the Peer ID might keep changing
+    var tempPeersUniqueID = [MCPeerID : String]()
+    
     
     var delegate: DataSourceDelegate?
     
     
-    
-    override init(){
-        super.init()
-        
-//        retrieveUserSettings()
-        
-    }
-    
+    // properties to delete
+    //    var allConversations: [Conversations] = [] // potentially not used
+    var allUsers: [User] = [] // can this be replaced by a store of connected peers(uniqueIDs).
     
     
     //MARK: - Settings
@@ -74,9 +82,185 @@ class DataSource: NSObject {
             println("start advertisng availability")
             MPCManager.sharedInstance.startAdvertisingForPeers()
         }
+        
+        
+        if let tempUniqueID = settings.valueForKey("uniqueID") as? String {
+            self.uniqueID = tempUniqueID
+        }
+        
+        if let tempPreviouslyConnectedPeers = settings.valueForKey("previouslyConnectedPeers") as? [String]{
+            self.previouslyConnectedPeers = settings.valueForKey("previouslyConnectedPeers") as! [String]
+        }
+        
+        
         println("***** retrieving settings *****")
         println("available peers: \(self.availablePeers)")
+        
     }
+
+    
+    
+    
+   
+    
+    func saveUserSettings(){
+        println("saving user settings")
+        let settings = NSUserDefaults.standardUserDefaults()
+        settings.setBool(discoverable, forKey: "discoverable")
+        
+        if let tempUniqueID = self.uniqueID{
+        } else {
+            makeUniqueID()
+        }
+        settings.setObject(self.uniqueID!, forKey: "uniqueID")
+
+        
+        
+        if self.displayName != "" {
+            settings.setValue(displayName, forKey: "displayName")
+            println("display name != empty")
+        } else {
+            settings.setValue(UIDevice.currentDevice().name, forKey: "displayName")
+            println("display name is empty")
+        }
+        
+        settings.setObject(self.previouslyConnectedPeers, forKey: "previouslyConnectedPeers")
+        
+        
+        // move this code to all closing or something
+//        saveMessages()
+        
+    }
+    
+    
+    func changeDiscoverability (discoverable: Bool){
+        println("discoverability \(discoverable)")
+        self.discoverable = discoverable
+        if discoverable {
+            
+            if let tempUniqueID = self.uniqueID{
+            } else {
+                makeUniqueID()
+            }
+            MPCManager.sharedInstance.startAdvertisingForPeers()
+            
+        } else {
+            println("turn off advertising")
+            MPCManager.sharedInstance.stopAdvertisingForPeers()
+        }
+        
+        saveUserSettings()
+    }
+ 
+    
+    func makeUniqueID(){
+        self.uniqueID = NSUUID().UUIDString
+        println(self.uniqueID)
+    }
+    
+    
+    
+    //MARK: - Peers
+    
+    func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus, uniqueID: String){
+        
+        
+        // if the user already exists then update status
+        if let peerStatus = allPeers[peerID] {
+            allPeers.updateValue(userStatus, forKey: peerID)
+        }
+        
+            // else insert the user into both the dictionary and the array used as the dataSource for Peers TBVC
+        else {
+            
+            // if its online
+            if userStatus == UserStatus.Online {
+                if let previousPeerID = allPeersUniqueID[uniqueID]{
+                    allPeersUniqueID[uniqueID] = peerID
+                    
+                    // remove the previousPeerID
+                    for (index,value) in enumerate(allPeers) {
+                        if value.0 == previousPeerID {
+                            allPeers.removeValueForKey(previousPeerID)
+                        }
+                    }
+                    
+                    
+                    // remove from availablePeers
+                    for (index,value) in enumerate(availablePeers) {
+                        if value == previousPeerID {
+                            availablePeers.removeAtIndex(index)
+                        }
+                    }
+                    
+                    
+                    // remove from allMessagesPeers
+                    for (index,value) in enumerate(allMessagesPeers) {
+                        if value == previousPeerID {
+                            availablePeers.removeAtIndex(index)
+                        }
+                    }
+                    
+                    
+                    // replace the peerID in allMessages = [MCPeerID: [JSQMessage]]
+                    for (index,value) in enumerate(allMessages) {
+                        if value.0 == previousPeerID {
+                            let messages = value.1
+                            allMessages.removeValueForKey(previousPeerID)
+                            allMessages[peerID] = messages
+//                            allPeers.removeValueForKey(previousPeerID)
+                        }
+                    }
+
+                    
+                    // replace the peerID in receivedMessages = [MCPeerID: [JSQMessage]]
+                    for (index,value) in enumerate(receivedMessages) {
+                        if value.0 == previousPeerID {
+                            let messages = value.1
+                            receivedMessages.removeValueForKey(previousPeerID)
+                            receivedMessages[peerID] = messages
+                            //                            allPeers.removeValueForKey(previousPeerID)
+                        }
+                    }
+                    
+                }
+            }
+            
+            
+            allPeers[peerID] = userStatus
+            availablePeers.append(peerID)
+        }
+        
+        // saving Available Peers to defaults
+        let settings = NSUserDefaults.standardUserDefaults()
+        let availablePeersData =  NSKeyedArchiver.archivedDataWithRootObject(self.availablePeers)
+        settings.setObject(availablePeersData, forKey: "availablePeers")
+       
+    }
+    
+    
+    
+    func autoConnectToPeer(peerID: MCPeerID, uniqueID: String) -> Bool{
+        
+        if contains(self.previouslyConnectedPeers, uniqueID) {
+            return true
+        }
+        return false
+    }
+    
+    
+    func connectedToPeer (peerID: MCPeerID){
+        if let uniqueID = self.tempPeersUniqueID[peerID]{
+            self.previouslyConnectedPeers.append(uniqueID)
+        }
+    }
+    
+    
+    func foundNewPeer (peerID: MCPeerID, uniqueID: String){
+        self.tempPeersUniqueID[peerID] = uniqueID
+    }
+    
+    
     
     
     func populateAllPeers(){
@@ -88,101 +272,60 @@ class DataSource: NSObject {
     
     
     
-    func saveUserSettings(){
-        let settings = NSUserDefaults.standardUserDefaults()
-        settings.setBool(discoverable, forKey: "discoverable")
+    //MARK: - Messages
+    
+    func receivedMessage (peerID: MCPeerID, message: JSQMessage){
+//        allMessages[peerID]?.append(message)
+        println("datasource receivedMessage, \(message.text)")
+        var messageArray = [message]
         
-        if self.displayName != "" {
-            settings.setValue(displayName, forKey: "displayName")
-            println("display name != empty")
-        } else {
-            settings.setValue(UIDevice.currentDevice().name, forKey: "displayName")
-            println("display name is empty")
-        }
-    }
-    
-    
-    func changeDiscoverability (discoverable: Bool){
-        println("discoverability \(discoverable)")
-        self.discoverable = discoverable
-        if discoverable {
-            MPCManager.sharedInstance.startAdvertisingForPeers()
-        } else {
-            println("turn off advertising")
-        }
-    }
-    
-    
-    // MARK: - Multipeer Connectivity
-   
-    /*
-    func connectedToPeer (peerID: MCPeerID){
-        // receives the peer id - checks whether its already in array of available peers and if yes, updates status of the user to available
-        if contains(availablePeers, peerID){
-            println("peer previously found")
-            for index in 0...allUsers.count-1 {
-                let user = allUsers[index]
-                if user.peerID == peerID {
-                    user.status = true
-                    allUsers[index] = user
-                    self.delegate?.userStatusChange(user, index: index)
-                }
-            }
-        } else {
-            availablePeers.append(peerID)
-            let newUser = User()
-            newUser.peerID = peerID
-            newUser.status = true
-            allUsers.append(newUser)
+        receivedMessages[peerID] = messageArray
 
-        }
-        self.delegate?.changeInUserConnections()
-        println("available peers \(availablePeers)")
-        println("all users: \(allUsers)")
+        NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
     }
-    */
     
     
-    func foundOrLostPeer (peerID: MCPeerID, userStatus: UserStatus){
+    func saveMessages(){
         
-        // if the user already exists then update status
-        if let peerStatus = allPeers[peerID] {
-            allPeers.updateValue(userStatus, forKey: peerID)
-        }
+        println("saving messages")
         
-            // else insert the user into both the dictionary and the array used as the dataSource for Peers TBVC
-        else {
-            allPeers[peerID] = userStatus
-            availablePeers.append(peerID)
-        }
-        
-        // saving Available Peers to defaults
         let settings = NSUserDefaults.standardUserDefaults()
-        let availablePeersData =  NSKeyedArchiver.archivedDataWithRootObject(self.availablePeers)
-        settings.setObject(availablePeersData, forKey: "availablePeers")
+        let allMessagesData = NSKeyedArchiver.archivedDataWithRootObject(self.allMessages)
+        let allMessagesPeersData = NSKeyedArchiver.archivedDataWithRootObject(self.allMessagesPeers)
+        settings.setObject(allMessagesData, forKey: "allMessages")
+        settings.setObject(allMessagesPeersData, forKey: "allMessagesPeers")
+    }
+    
+    
+    func retrieveMessages(){
+        let settings = NSUserDefaults.standardUserDefaults()
         
-        /*
-        // this code is for testing that correct UserStatus is coming through. Uncomment to test.
-        let userStatusString = allPeers[peerID]!
-        switch userStatusString {
-        case .Online:
-            println("test of function foundPeer. peer status is Online")
-        
-        case .Offline:
-            println("test of function foundPeer. peer status is Offline")
+        if let tempAllMessagesData: AnyObject = settings.objectForKey("allMessages") {
+            self.allMessages = (NSKeyedUnarchiver.unarchiveObjectWithData(tempAllMessagesData as! NSData) as? [MCPeerID: [JSQMessage]])!
         }
-        */
+        
+        if let tempAllMessagesPeersData: AnyObject = settings.objectForKey("allMessagesPeers") {
+            self.allMessagesPeers = NSKeyedUnarchiver.unarchiveObjectWithData(tempAllMessagesPeersData as! NSData) as! [MCPeerID]
+        }
         
         
+        
+        
+        
+        if let tempAvailablePeersData = settings.objectForKey("availablePeers") as? NSData {
+            self.availablePeers = (NSKeyedUnarchiver.unarchiveObjectWithData(tempAvailablePeersData) as? [MCPeerID])!
+            populateAllPeers()
+        }
+        
+        self.discoverable = settings.boolForKey("discoverable")
+        
+        if let displayNameSettings = settings.valueForKey("displayName") as? String{
+            self.displayName = displayNameSettings
+            println("displayName retrieved")
+        }
+
     }
     
     
-    
-    func lostPeer (peerID: MCPeerID){
-    }
-    
-    
-    func ignorePeer (peerID: MCPeerID){
-    }
-   
+  
 }

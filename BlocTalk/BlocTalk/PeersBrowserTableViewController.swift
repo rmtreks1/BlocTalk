@@ -164,8 +164,43 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         
         println(DataSource.sharedInstance.availablePeers)
         self.tableView.reloadData()
-
+    }
     
+    
+    func didConnectToPeer(peerID: MCPeerID) {
+        println("connected to peer")
+        
+        // create a test conversation
+//        TestData.sharedInstance.createDemoData(peerID)
+        var messages = [JSQMessage]()
+        DataSource.sharedInstance.allMessages[peerID] = messages
+        
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    
+    
+    /*
+    @IBAction func lookForDuplicates(sender: UIBarButtonItem) {
+        
+        let uniqueAvailablePeers = uniq(DataSource.sharedInstance.availablePeers)
+        println("count of unique peers: \(uniqueAvailablePeers.count) out of total available peers: \(DataSource.sharedInstance.availablePeers.count)")
+        
+    }
+
+    
+    func uniq<S : SequenceType, T : Hashable where S.Generator.Element == T>(source: S) -> [T] {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
+    */
+    
 }

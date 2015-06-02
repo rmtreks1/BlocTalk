@@ -9,7 +9,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCManagerDelegate {
+class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     
   
     override func viewDidLoad() {
@@ -29,6 +29,10 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCMa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        DataSource.sharedInstance.allMessagesPeers = []
+        for (peerID, messages) in DataSource.sharedInstance.allMessages {
+            DataSource.sharedInstance.allMessagesPeers.append(peerID)
+        }
         self.tableView.reloadData()
     }
     
@@ -49,7 +53,11 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCMa
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return DataSource.sharedInstance.allConversations.count
+        
+        println("Data source allMessages has \(DataSource.sharedInstance.allMessages.count)")
+        println("Data source allMessagesPeers has \(DataSource.sharedInstance.allMessagesPeers.count)")
+        
+        return DataSource.sharedInstance.allMessagesPeers.count
     }
 
 
@@ -58,8 +66,15 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCMa
 
         
         // Configure the cell... Move this to separate TableViewCell & this is incomplete
-        let conversation = DataSource.sharedInstance.allConversations[indexPath.row] as Conversations
-        cell.conversationLabel.text = conversation.conversationText
+        let peerID = DataSource.sharedInstance.allMessagesPeers[indexPath.row]
+        let conversation = DataSource.sharedInstance.allMessages[peerID]
+        let conversationText = conversation?.first?.text
+        
+        if let tempConversationText = conversationText {
+            cell.conversationLabel.text = conversationText!
+        }
+
+        cell.peerDisplayNameLabel.text = peerID.displayName
         
         return cell
     }
@@ -134,13 +149,19 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate, MPCMa
     
     
     
-    //MARK: - MPCManager Delegate
-    func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!){
-        
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ChatWithPeer"{
+            let cell = sender as! UITableViewCell
+            let indexPath = self.tableView.indexPathForCell(cell)
+            let peer = DataSource.sharedInstance.allMessagesPeers[indexPath!.row]
+            println("chatting with peer \(peer)")
+            
+            if let chatVC = segue.destinationViewController as? ChatViewController{
+                chatVC.peerID = peer
+            }
+        }
     }
     
-    func didReceiveMessage(){
-        self.tableView.reloadData()
-    }
-
+    
+    
 }

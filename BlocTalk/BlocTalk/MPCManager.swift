@@ -11,6 +11,7 @@ import MultipeerConnectivity
 protocol MPCManagerDelegate {
     func didReceiveInvitationFromPeer (peerID: MCPeerID, invitationHandler: ((Bool, MCSession!) -> Void)!)
     func didReceiveMessage()
+    func didConnectToPeer (peerID: MCPeerID)
 }
 
 
@@ -44,7 +45,15 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         
 
         // comment this out if want control of advertiser, otherwise leave commented out as using assistant
-        advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: serviceType)
+        
+        if let tempUniqueID = DataSource.sharedInstance.uniqueID {
+        } else {
+            DataSource.sharedInstance.makeUniqueID()
+        }
+        
+        let discoveryInfo = ["uniqueID":DataSource.sharedInstance.uniqueID!]
+        
+        advertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: discoveryInfo, serviceType: serviceType)
         advertiser.delegate = self
 
 
@@ -65,6 +74,11 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         println("started advertising for peers")
     }
     
+    func stopAdvertisingForPeers(){
+        self.advertiser.stopAdvertisingPeer()
+        println("stopped advertising for peers")
+    }
+    
     
     
     
@@ -72,8 +86,15 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
         println("received invite from \(peerID.displayName)")
 
+        if let uniqueID = DataSource.sharedInstance.tempPeersUniqueID[peerID]{
+            if contains(DataSource.sharedInstance.previouslyConnectedPeers, uniqueID){
+                println("accept this invite")
+                invitationHandler(true, MPCManager.sharedInstance.session)
+                return
+            }
+        }
+        
         self.delegate?.didReceiveInvitationFromPeer(peerID, invitationHandler: invitationHandler)
-
     }
     
     
@@ -81,8 +102,22 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         println("found peer \(peerID)")
         
+        var uniqueID = ""
+        if let tempDiscoveryInfo = info as? [String: AnyObject] {
+            uniqueID = tempDiscoveryInfo["uniqueID"] as! String
+        }
         
-        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online) // test function
+        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Online, uniqueID: uniqueID)
+        DataSource.sharedInstance.foundNewPeer(peerID, uniqueID: uniqueID)
+        
+        // trial function - to build up an array of trusted peers to connect to
+        if DataSource.sharedInstance.autoConnectToPeer(peerID, uniqueID: uniqueID){
+            println("trust this peer")
+        } else {
+            println("don't know this person")
+//            DataSource.sharedInstance.
+        }
+        
         
         // check if peer not already in list
         if !contains(availablePeers, peerID) {
@@ -101,7 +136,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         
         println("lost peer \(peerID)")
         
-        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline)
+        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline, uniqueID: "")
+//        DataSource.sharedInstance.foundOrLostPeer(peerID, userStatus: DataSource.UserStatus.Offline)
         
         for (index,value) in enumerate(availablePeers) {
             if value == peerID {
@@ -118,20 +154,31 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     
     // MARK: - MCSessionDelegate
-    func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
+    func session(session: MCSession!, didReceiveData messageData: NSData!, fromPeer peerID: MCPeerID!) {
         println("did receive data")
-        let testMessage = NSString(data: data, encoding: NSUTF8StringEncoding)
-        println(testMessage)
         
-        let conversation = Conversations()
-        conversation.conversationText = testMessage as? String
-        
-        DataSource.sharedInstance.allConversations.append(conversation)
-        
+        if let tempMessage: AnyObject = NSKeyedUnarchiver.unarchiveObjectWithData(messageData){
+            if tempMessage.isKindOfClass(JSQMessage) {
+                let message = tempMessage as! JSQMessage
+                println(message.text)
+                DataSource.sharedInstance.receivedMessage(peerID, message: message)
+            }
+            
+            
+            // move this to separate function
+            
+            
+            
+        }
         self.delegate?.didReceiveMessage()
-        
-        
     }
+    
+    
+    
+    
+    
+    
+    
     
     func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) {
         
@@ -149,8 +196,8 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
         switch state {
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-//            DataSource.sharedInstance.connectedToPeer(peerID)
-            fakeConversation(peerID)
+            DataSource.sharedInstance.connectedToPeer(peerID)
+            self.delegate?.didConnectToPeer(peerID)
             
             
         case MCSessionState.Connecting:
@@ -176,12 +223,20 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     
     //MARK: - Chat
     func fakeConversation (peerID: MCPeerID){
+    }
+    
+    
+    func sendMessage (peerID: MCPeerID, message: JSQMessage) {
         
-        // test data
-        let testMessage = "Hi is this working?" as NSString
-        let testData = testMessage.dataUsingEncoding(NSUTF8StringEncoding)
+        let messageData = NSKeyedArchiver.archivedDataWithRootObject(message)
+        var error: NSError?
         
-        self.session.sendData(testData!, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: nil)
+        var result = self.session.sendData(messageData, toPeers: [peerID], withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if let actualError = error {
+            println("there was an error")
+            // remove message from UI or prompt to resend
+        }
         
     }
     
