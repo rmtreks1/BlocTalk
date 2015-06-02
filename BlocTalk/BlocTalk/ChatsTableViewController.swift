@@ -78,7 +78,7 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         // Configure the cell... Move this to separate TableViewCell & this is incomplete
         let peerID = DataSource.sharedInstance.allMessagesPeers[indexPath.row]
         let conversation = DataSource.sharedInstance.allMessages[peerID]
-        let conversationText = conversation?.first?.text
+        let conversationText = conversation?.last?.text
         
         if let tempConversationText = conversationText {
             cell.conversationLabel.text = conversationText!
