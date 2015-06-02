@@ -56,7 +56,7 @@ class DataSource: NSObject {
     var archivedPeers: [MCPeerID] = []
     
     var tempPeersUniqueID = [MCPeerID : String]()
-    
+    var chattingWithPeer: MCPeerID? // to store current peer chatting with
     
     var delegate: DataSourceDelegate?
     
@@ -446,25 +446,21 @@ class DataSource: NSObject {
     func scheduleNotifications(peerID: MCPeerID){
         println("*** scheduling notifications ***")
         
+        // check that notification to schedule is not for peer currently chatting with
+        if let tempChattingWithPeer = self.chattingWithPeer {
+            if peerID == tempChattingWithPeer {
+                println("no notification needed")
+                return
+            }
+        }
         
+        
+        // notification
         let messageNotification = UILocalNotification()
         messageNotification.alertAction = "View Now"
         messageNotification.alertBody = "New message from \(peerID.displayName)"
         messageNotification.fireDate = NSDate(timeIntervalSinceNow: Double(15))
         UIApplication.sharedApplication().scheduleLocalNotification(messageNotification)
-        
-        /*
-        for i in 1...self.postsPerDay!{
-        println("creating notification")
-        let localNotification:UILocalNotification = UILocalNotification()
-        localNotification.alertAction = "Post to Instagram"
-        localNotification.alertBody = "Reach your publishing goal. Post to Instagram now."
-        localNotification.repeatInterval = NSCalendarUnit.CalendarUnitDay
-        localNotification.fireDate = NSDate(timeIntervalSinceNow: Double(self.timeBetweenPosts!*i*60))
-        localNotification.category = "POST_CATEGORY"
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        }
-        */
         
     }
 

@@ -73,6 +73,11 @@ class ChatViewController: JSQMessagesViewController {
         } else {
             chatData = []
         }
+        
+        
+        // store current chat partner into DataSource for notifications
+        DataSource.sharedInstance.chattingWithPeer = self.peerID!
+        
     }
     
     
@@ -105,6 +110,9 @@ class ChatViewController: JSQMessagesViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         saveChat()
+        
+        // remove peer as chatting with from DataSource
+        DataSource.sharedInstance.chattingWithPeer = nil
     }
     
     
