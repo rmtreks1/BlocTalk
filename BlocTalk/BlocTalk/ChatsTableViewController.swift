@@ -88,7 +88,7 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -98,7 +98,15 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        let archiveAction = UITableViewRowAction(style: .Default, title: "Archive") { (UITableViewRowAction, NSIndexPath) -> Void in
+            println("Archive this chat")
+        }
+        
+        return [archiveAction]
+    }
 
     /*
     // Override to support rearranging the table view.
