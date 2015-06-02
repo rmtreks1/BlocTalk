@@ -333,8 +333,15 @@ class DataSource: NSObject {
             self.allMessages[peerID] = chatMessages
         }
         
+        // check the peer and if archived remove
+        if contains(self.archivedPeers, peerID){
+            for (index,value) in enumerate(self.archivedPeers){
+                if value == peerID {
+                    self.archivedPeers.removeAtIndex(index)
+                }
+            }
+        }
 
-        
         
         NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
     }
@@ -347,7 +354,7 @@ class DataSource: NSObject {
             chatMessages = tempChatMessages
             chatMessages.append(message)
             self.allMessages[peerID] = chatMessages
-        }   
+        }
     }
     
     
