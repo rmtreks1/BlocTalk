@@ -120,7 +120,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zU-H0-2nl">
-                                <rect key="frame" x="255" y="94" width="51" height="31"/>
+                                <rect key="frame" x="255" y="149" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="3XT-7Z-3f3"/>
                                     <constraint firstAttribute="height" constant="31" id="Vec-bC-jZd"/>
@@ -129,8 +129,17 @@
                                     <action selector="discoverableSwitchChanged:" destination="vO1-n0-lWp" eventType="valueChanged" id="vjJ-cm-2iy"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6b-aS-epZ">
+                                <rect key="frame" x="87" y="518" width="146" height="30"/>
+                                <state key="normal" title="UnArchive">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unArchiveButtonPressed:" destination="vO1-n0-lWp" eventType="touchUpInside" id="s6R-Sv-HaZ"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discoverable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63a-5S-9bq">
-                                <rect key="frame" x="16" y="99" width="132" height="21"/>
+                                <rect key="frame" x="16" y="154" width="132" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="132" id="kNL-Bt-hFq"/>
                                     <constraint firstAttribute="height" constant="21" id="xB6-6M-8XV"/>
@@ -139,8 +148,20 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iMH-Sl-EzJ">
+                                <rect key="frame" x="255" y="94" width="51" height="31"/>
+                                <connections>
+                                    <action selector="notificationSwitchChanged:" destination="vO1-n0-lWp" eventType="valueChanged" id="6kg-r5-PzW"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xef-Pu-k01">
+                                <rect key="frame" x="16" y="99" width="132" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKf-OE-R3i" userLabel="DisplaySettingsView">
-                                <rect key="frame" x="0.0" y="156" width="320" height="412"/>
+                                <rect key="frame" x="0.0" y="219" width="320" height="265"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="display name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rWx-l8-8ox">
                                         <rect key="frame" x="116" y="8" width="196" height="30"/>
@@ -157,25 +178,13 @@
                                             <constraint firstAttribute="width" constant="100" id="pqP-Nb-9zn"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6b-aS-epZ">
-                                        <rect key="frame" x="87" y="374" width="146" height="30"/>
-                                        <state key="normal" title="UnArchive">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="unArchiveButtonPressed:" destination="vO1-n0-lWp" eventType="touchUpInside" id="s6R-Sv-HaZ"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="rWx-l8-8ox" firstAttribute="top" secondItem="fKf-OE-R3i" secondAttribute="top" constant="8" id="7y4-5b-v6N"/>
-                                    <constraint firstItem="N6b-aS-epZ" firstAttribute="leading" secondItem="fKf-OE-R3i" secondAttribute="leading" constant="87" id="FWA-wL-bGk"/>
                                     <constraint firstAttribute="trailing" secondItem="rWx-l8-8ox" secondAttribute="trailing" constant="8" id="KKx-wg-wU5"/>
-                                    <constraint firstAttribute="trailing" secondItem="N6b-aS-epZ" secondAttribute="trailing" constant="87" id="PUN-QT-EIn"/>
                                     <constraint firstItem="Bmz-fS-Z7E" firstAttribute="leading" secondItem="fKf-OE-R3i" secondAttribute="leading" constant="8" id="aTY-qV-1TZ"/>
                                     <constraint firstItem="Bmz-fS-Z7E" firstAttribute="top" secondItem="fKf-OE-R3i" secondAttribute="top" constant="8" id="hMC-sc-q6c"/>
-                                    <constraint firstAttribute="bottom" secondItem="N6b-aS-epZ" secondAttribute="bottom" constant="8" id="hQV-kr-VOX"/>
                                     <constraint firstItem="rWx-l8-8ox" firstAttribute="leading" secondItem="Bmz-fS-Z7E" secondAttribute="trailing" constant="8" id="j5L-vw-hPr"/>
                                 </constraints>
                             </view>
@@ -183,13 +192,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="63a-5S-9bq" firstAttribute="leading" secondItem="6TL-7b-VnW" secondAttribute="leadingMargin" id="2Mh-3A-gIJ"/>
-                            <constraint firstItem="fKf-OE-R3i" firstAttribute="top" secondItem="8zU-H0-2nl" secondAttribute="bottom" constant="31" id="8Ee-dI-YV9"/>
-                            <constraint firstItem="63a-5S-9bq" firstAttribute="top" secondItem="2ms-A7-KHP" secondAttribute="bottom" constant="35" id="DGe-y2-9Tj"/>
-                            <constraint firstItem="8zU-H0-2nl" firstAttribute="top" secondItem="2ms-A7-KHP" secondAttribute="bottom" constant="30" id="MmN-e0-S9Q"/>
+                            <constraint firstItem="8zU-H0-2nl" firstAttribute="top" secondItem="iMH-Sl-EzJ" secondAttribute="bottom" constant="24" id="3g4-f7-YPt"/>
+                            <constraint firstItem="Xef-Pu-k01" firstAttribute="leading" secondItem="6TL-7b-VnW" secondAttribute="leadingMargin" id="6A8-Er-948"/>
+                            <constraint firstItem="N6b-aS-epZ" firstAttribute="top" secondItem="fKf-OE-R3i" secondAttribute="bottom" constant="34" id="CF4-05-hJq"/>
+                            <constraint firstItem="iMH-Sl-EzJ" firstAttribute="trailing" secondItem="6TL-7b-VnW" secondAttribute="trailingMargin" id="HcE-vT-cxz"/>
                             <constraint firstItem="8zU-H0-2nl" firstAttribute="trailing" secondItem="6TL-7b-VnW" secondAttribute="trailingMargin" id="Nde-Sq-P69"/>
+                            <constraint firstItem="N6b-aS-epZ" firstAttribute="leading" secondItem="6TL-7b-VnW" secondAttribute="leadingMargin" constant="71" id="RXZ-Di-Qhi"/>
+                            <constraint firstItem="63a-5S-9bq" firstAttribute="top" secondItem="Xef-Pu-k01" secondAttribute="bottom" constant="34" id="SUW-y8-fWb"/>
                             <constraint firstAttribute="trailing" secondItem="fKf-OE-R3i" secondAttribute="trailing" id="TrZ-LR-HqZ"/>
+                            <constraint firstItem="fKf-OE-R3i" firstAttribute="top" secondItem="8zU-H0-2nl" secondAttribute="bottom" constant="39" id="WPe-yl-A2t"/>
                             <constraint firstItem="fKf-OE-R3i" firstAttribute="leading" secondItem="6TL-7b-VnW" secondAttribute="leading" id="Wde-hv-LHT"/>
-                            <constraint firstItem="0aD-M2-QMA" firstAttribute="top" secondItem="fKf-OE-R3i" secondAttribute="bottom" id="b2C-2B-X87"/>
+                            <constraint firstItem="iMH-Sl-EzJ" firstAttribute="leading" secondItem="Xef-Pu-k01" secondAttribute="trailing" constant="107" id="YLh-Y4-txj"/>
+                            <constraint firstItem="iMH-Sl-EzJ" firstAttribute="top" secondItem="2ms-A7-KHP" secondAttribute="bottom" constant="30" id="iKl-PE-yyW"/>
+                            <constraint firstItem="0aD-M2-QMA" firstAttribute="top" secondItem="N6b-aS-epZ" secondAttribute="bottom" constant="20" id="jcM-ez-byN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="N6b-aS-epZ" secondAttribute="trailing" constant="71" id="qd5-Ju-1dR"/>
+                            <constraint firstItem="Xef-Pu-k01" firstAttribute="top" secondItem="2ms-A7-KHP" secondAttribute="bottom" constant="35" id="saC-9b-j4s"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="jFt-ww-odC">
@@ -203,6 +220,7 @@
                         <outlet property="discoverableSwitch" destination="8zU-H0-2nl" id="E1j-sO-Aod"/>
                         <outlet property="displayNameTextField" destination="rWx-l8-8ox" id="CIj-fi-K73"/>
                         <outlet property="displaySettingsView" destination="fKf-OE-R3i" id="uc7-WM-EUf"/>
+                        <outlet property="notificationsSwitch" destination="iMH-Sl-EzJ" id="B9r-YK-iql"/>
                         <outlet property="profileImage" destination="Bmz-fS-Z7E" id="wwD-VH-qbV"/>
                     </connections>
                 </viewController>

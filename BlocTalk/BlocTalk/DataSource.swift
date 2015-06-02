@@ -56,7 +56,7 @@ class DataSource: NSObject {
     var archivedPeers: [MCPeerID] = []
     
     var tempPeersUniqueID = [MCPeerID : String]()
-    
+    var chattingWithPeer: MCPeerID? // to store current peer chatting with
     
     var delegate: DataSourceDelegate?
     
@@ -324,10 +324,41 @@ class DataSource: NSObject {
         println("datasource receivedMessage, \(message.text)")
         var messageArray = [message]
         
-        receivedMessages[peerID] = messageArray
+//        receivedMessages[peerID] = messageArray
+        
+        var chatMessages = [JSQMessage]()
+        if let tempChatMessages = self.allMessages[peerID]{
+            chatMessages = tempChatMessages
+            chatMessages.append(message)
+            self.allMessages[peerID] = chatMessages
+        }
+        
+        // check the peer and if archived remove
+        if contains(self.archivedPeers, peerID){
+            for (index,value) in enumerate(self.archivedPeers){
+                if value == peerID {
+                    self.archivedPeers.removeAtIndex(index)
+                    NSNotificationCenter.defaultCenter().postNotificationName("unarchive", object: self)
+                }
+            }
+        }
 
+        
         NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
+        self.scheduleNotifications(peerID)
     }
+    
+    
+    func sentMessage (peerID: MCPeerID, message: JSQMessage){
+        
+        var chatMessages = [JSQMessage]()
+        if let tempChatMessages = self.allMessages[peerID]{
+            chatMessages = tempChatMessages
+            chatMessages.append(message)
+            self.allMessages[peerID] = chatMessages
+        }
+    }
+    
     
     
     func saveMessages(){
@@ -370,6 +401,74 @@ class DataSource: NSObject {
         }
 
     }
+    
+    
+    
+    
+    //MARK: - Notifications
+    
+    func registerForNotifications(){
+        
+        // Post Action
+        let postAction = UIMutableUserNotificationAction()
+        postAction.identifier = "VIEW_CHAT"
+        postAction.title = "View Chat"
+        postAction.activationMode = UIUserNotificationActivationMode.Background
+        postAction.authenticationRequired = true
+        postAction.destructive = false
+        
+        
+        // 2. Create the category ***********************************************
+        
+        // Category
+        let postCategory = UIMutableUserNotificationCategory()
+        postCategory.identifier = "POST_CATEGORY"
+        
+        // A. Set actions for the default context
+        postCategory.setActions([postAction],
+            forContext: UIUserNotificationActionContext.Default)
+        
+        // B. Set actions for the minimal context
+        postCategory.setActions([postAction],
+            forContext: UIUserNotificationActionContext.Minimal)
+        
+        
+        // 3. Notification Registration *****************************************
+        
+        let types = UIUserNotificationType.Alert | UIUserNotificationType.Sound | UIUserNotificationType.Badge
+        let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: postCategory) as Set<NSObject>)
+        
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        
+    }
+    
+    
+    func scheduleNotifications(peerID: MCPeerID){
+        println("*** scheduling notifications ***")
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // check that notification to schedule is not for peer currently chatting with
+            if let tempChattingWithPeer = self.chattingWithPeer {
+                if peerID == tempChattingWithPeer {
+                    println("no notification needed")
+                    return
+                }
+            }
+            
+            
+            // notification
+            let messageNotification = UILocalNotification()
+            messageNotification.alertAction = "View Now"
+            messageNotification.alertBody = "New message from \(peerID.displayName)"
+            messageNotification.fireDate = NSDate(timeIntervalSinceNow: Double(15))
+            messageNotification.category = "POST_CATEGORY"
+            UIApplication.sharedApplication().scheduleLocalNotification(messageNotification)
+            
+            println(messageNotification)
+        })
+        
+    }
+
     
     
   

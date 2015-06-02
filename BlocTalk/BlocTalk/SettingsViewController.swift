@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet var displaySettingsView: UIView!
     @IBOutlet var displayNameTextField: UITextField!
     @IBOutlet var profileImage: UIImageView!
+    @IBOutlet var notificationsSwitch: UISwitch!
     
     
     //MARK: - Overrides
@@ -59,6 +60,15 @@ class SettingsViewController: UIViewController {
     }
     
     
+    @IBAction func notificationSwitchChanged(sender: UISwitch) {
+        if sender.on {
+            DataSource.sharedInstance.registerForNotifications()
+        }
+    }
+    
+    
+    
+    
     @IBAction func createFakeData(sender: UIButton) {
 //        TestData.sharedInstance.createDemoData(self.fakePeer.text)
     }
@@ -67,6 +77,8 @@ class SettingsViewController: UIViewController {
     @IBAction func unArchiveButtonPressed(sender: UIButton) {
         DataSource.sharedInstance.unarchivePeers()
     }
+    
+    
     
 
 }

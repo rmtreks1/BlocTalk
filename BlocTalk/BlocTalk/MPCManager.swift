@@ -241,4 +241,11 @@ class MPCManager: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdver
     }
     
     
+    
+    
+       
+    
+    
+    
+    
 }
