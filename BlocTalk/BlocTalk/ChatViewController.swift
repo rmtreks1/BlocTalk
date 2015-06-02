@@ -51,6 +51,7 @@ class ChatViewController: JSQMessagesViewController {
             self.peerStatusButton.title = title
         }
         
+       
      
         
     }
@@ -237,7 +238,7 @@ class ChatViewController: JSQMessagesViewController {
         
         
     }
-        
+    
     
     // MARK: - UICollectionView DataSource
     

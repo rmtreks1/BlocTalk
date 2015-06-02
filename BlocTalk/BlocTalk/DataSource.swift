@@ -338,6 +338,7 @@ class DataSource: NSObject {
             for (index,value) in enumerate(self.archivedPeers){
                 if value == peerID {
                     self.archivedPeers.removeAtIndex(index)
+                    NSNotificationCenter.defaultCenter().postNotificationName("unarchive", object: self)
                 }
             }
         }

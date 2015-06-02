@@ -17,6 +17,8 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         
         DataSource.sharedInstance.delegate = self
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable", name: "unarchive", object: nil)
+        
   
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -40,6 +42,11 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     }
     
 
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -177,6 +184,21 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
                 chatVC.peerID = peer
             }
         }
+    }
+    
+    
+    func reloadTable(){
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DataSource.sharedInstance.allMessagesPeers = []
+            for (peerID, messages) in DataSource.sharedInstance.allMessages {
+                // check if peer has been archived
+                if !contains(DataSource.sharedInstance.archivedPeers, peerID){
+                    DataSource.sharedInstance.allMessagesPeers.append(peerID)
+                }
+            }
+            self.tableView.reloadData()
+        })
     }
     
     
