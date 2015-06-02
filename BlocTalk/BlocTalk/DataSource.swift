@@ -97,6 +97,13 @@ class DataSource: NSObject {
         }
         
         
+        if let tempArchivedPeersData = settings.valueForKey("archivedPeers") as? NSData {
+            self.archivedPeers = NSKeyedUnarchiver.unarchiveObjectWithData(tempArchivedPeersData) as! [MCPeerID]
+        }
+        
+        
+        
+        
         println("***** retrieving settings *****")
         println("available peers: \(self.availablePeers)")
         
@@ -129,6 +136,12 @@ class DataSource: NSObject {
         }
         
         settings.setObject(self.previouslyConnectedPeers, forKey: "previouslyConnectedPeers")
+
+        
+        
+        let archivedPeersData = NSKeyedArchiver.archivedDataWithRootObject(self.archivedPeers)
+        settings.setObject(archivedPeersData, forKey: "archivedPeers")
+        
         
         
         // move this code to all closing or something
