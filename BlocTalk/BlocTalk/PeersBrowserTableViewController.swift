@@ -176,7 +176,9 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
         DataSource.sharedInstance.allMessages[peerID] = messages
         
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
     }
 
     

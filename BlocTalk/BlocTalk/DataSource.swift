@@ -345,6 +345,7 @@ class DataSource: NSObject {
 
         
         NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
+        self.scheduleNotifications(peerID)
     }
     
     
@@ -400,6 +401,73 @@ class DataSource: NSObject {
         }
 
     }
+    
+    
+    
+    
+    //MARK: - Notifications
+    
+    func registerForNotifications(){
+        
+        // Post Action
+        let postAction = UIMutableUserNotificationAction()
+        postAction.identifier = "VIEW_CHAT"
+        postAction.title = "View Chat"
+        postAction.activationMode = UIUserNotificationActivationMode.Background
+        postAction.authenticationRequired = true
+        postAction.destructive = false
+        
+        
+        // 2. Create the category ***********************************************
+        
+        // Category
+        let postCategory = UIMutableUserNotificationCategory()
+        postCategory.identifier = "POST_CATEGORY"
+        
+        // A. Set actions for the default context
+        postCategory.setActions([postAction],
+            forContext: UIUserNotificationActionContext.Default)
+        
+        // B. Set actions for the minimal context
+        postCategory.setActions([postAction],
+            forContext: UIUserNotificationActionContext.Minimal)
+        
+        
+        // 3. Notification Registration *****************************************
+        
+        let types = UIUserNotificationType.Alert | UIUserNotificationType.Sound | UIUserNotificationType.Badge
+        let settings = UIUserNotificationSettings(forTypes: types, categories: NSSet(object: postCategory) as Set<NSObject>)
+        
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        
+    }
+    
+    
+    func scheduleNotifications(peerID: MCPeerID){
+        println("*** scheduling notifications ***")
+        
+        
+        let messageNotification = UILocalNotification()
+        messageNotification.alertAction = "View Now"
+        messageNotification.alertBody = "New message from \(peerID.displayName)"
+        messageNotification.fireDate = NSDate(timeIntervalSinceNow: Double(15))
+        UIApplication.sharedApplication().scheduleLocalNotification(messageNotification)
+        
+        /*
+        for i in 1...self.postsPerDay!{
+        println("creating notification")
+        let localNotification:UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Post to Instagram"
+        localNotification.alertBody = "Reach your publishing goal. Post to Instagram now."
+        localNotification.repeatInterval = NSCalendarUnit.CalendarUnitDay
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: Double(self.timeBetweenPosts!*i*60))
+        localNotification.category = "POST_CATEGORY"
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        }
+        */
+        
+    }
+
     
     
   
