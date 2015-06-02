@@ -446,21 +446,26 @@ class DataSource: NSObject {
     func scheduleNotifications(peerID: MCPeerID){
         println("*** scheduling notifications ***")
         
-        // check that notification to schedule is not for peer currently chatting with
-        if let tempChattingWithPeer = self.chattingWithPeer {
-            if peerID == tempChattingWithPeer {
-                println("no notification needed")
-                return
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // check that notification to schedule is not for peer currently chatting with
+            if let tempChattingWithPeer = self.chattingWithPeer {
+                if peerID == tempChattingWithPeer {
+                    println("no notification needed")
+                    return
+                }
             }
-        }
-        
-        
-        // notification
-        let messageNotification = UILocalNotification()
-        messageNotification.alertAction = "View Now"
-        messageNotification.alertBody = "New message from \(peerID.displayName)"
-        messageNotification.fireDate = NSDate(timeIntervalSinceNow: Double(15))
-        UIApplication.sharedApplication().scheduleLocalNotification(messageNotification)
+            
+            
+            // notification
+            let messageNotification = UILocalNotification()
+            messageNotification.alertAction = "View Now"
+            messageNotification.alertBody = "New message from \(peerID.displayName)"
+            messageNotification.fireDate = NSDate(timeIntervalSinceNow: Double(15))
+            messageNotification.category = "POST_CATEGORY"
+            UIApplication.sharedApplication().scheduleLocalNotification(messageNotification)
+            
+            println(messageNotification)
+        })
         
     }
 
