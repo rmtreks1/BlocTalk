@@ -103,6 +103,12 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         let archiveAction = UITableViewRowAction(style: .Default, title: "Archive") { (UITableViewRowAction, NSIndexPath) -> Void in
             println("Archive this chat")
+
+            // check which conversation to archive
+            let peerID = DataSource.sharedInstance.allMessagesPeers[indexPath.row]
+            println("\(peerID.displayName)")
+            DataSource.sharedInstance.archivePeer(peerID)
+            self.tableView.reloadData()
         }
         
         return [archiveAction]

@@ -48,9 +48,13 @@ class DataSource: NSObject {
     
     var allMessages = [MCPeerID: [JSQMessage]]() // replace String with MCPeerID
     var allMessagesPeers:[MCPeerID] = [] // replace String with MCPeerID
+
     var receivedMessages = [MCPeerID: [JSQMessage]]() // temporarily hold received messages
     
     var previouslyConnectedPeers = [String]() // store the unique ID as the Peer ID might keep changing
+    
+    var archivedPeers: [MCPeerID] = []
+    
     var tempPeersUniqueID = [MCPeerID : String]()
     
     
@@ -260,6 +264,27 @@ class DataSource: NSObject {
         self.tempPeersUniqueID[peerID] = uniqueID
     }
     
+    
+    
+    func archivePeer (peerID: MCPeerID){
+        
+        println("archiving peer")
+        
+        // remove peer from allMessagesPeers
+        for (index, value) in enumerate(allMessagesPeers){
+            if value == peerID {
+                allMessagesPeers.removeAtIndex(index)
+                println("removing peer from allMessagesPeers")
+            }
+        }
+        
+        // add peer to archive Peer
+        
+        if !contains(archivedPeers, peerID){
+            archivedPeers.append(peerID)
+            println("adding peer to archive peers")
+        }
+    }
     
     
     
