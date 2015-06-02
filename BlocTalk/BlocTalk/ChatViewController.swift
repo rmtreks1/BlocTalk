@@ -51,6 +51,7 @@ class ChatViewController: JSQMessagesViewController {
             self.peerStatusButton.title = title
         }
         
+       
      
         
     }
@@ -194,9 +195,10 @@ class ChatViewController: JSQMessagesViewController {
         
         MPCManager.sharedInstance.sendMessage(self.peerID!, message: message)
         
-        
-        chatData!.append(message)
-        
+        DataSource.sharedInstance.sentMessage(self.peerID!, message: message)
+//        chatData!.append(message)
+        self.loadChatData()
+
         finishSendingMessageAnimated(true)
         
     }
@@ -214,28 +216,29 @@ class ChatViewController: JSQMessagesViewController {
         println("chatVC received new message")
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
-                for index in 0...newMessage.count-1 {
-                    let message = newMessage[index] as JSQMessage
-                    
-                    
-                    println("chatVC message is \(message.text)")
-                    self.chatData!.append(message)
-                    
-                    
-                    println("need to refresh the fucking controller")
-                    
-                    self.finishReceivingMessage()
-                }
-                
-                DataSource.sharedInstance.receivedMessages[self.peerID!] = []
-            }
+//            if let newMessage = DataSource.sharedInstance.receivedMessages[self.peerID!]{
+//                for index in 0...newMessage.count-1 {
+//                    let message = newMessage[index] as JSQMessage
+//                    
+//                    
+//                    println("chatVC message is \(message.text)")
+//                    self.chatData!.append(message)
+//                    
+//                    
+//                    println("need to refresh the fucking controller")
+            self.loadChatData()
+
+            self.finishReceivingMessage()
+//                }
+//                
+//                DataSource.sharedInstance.receivedMessages[self.peerID!] = []
+//            }
         })
         
         
         
     }
-        
+    
     
     // MARK: - UICollectionView DataSource
     
@@ -267,10 +270,10 @@ class ChatViewController: JSQMessagesViewController {
     
     
     func saveChat(){
-        
-        if let tempPeerID = self.peerID {
-            DataSource.sharedInstance.allMessages[self.peerID!] = self.chatData
-        }
+//        
+//        if let tempPeerID = self.peerID {
+//            DataSource.sharedInstance.allMessages[self.peerID!] = self.chatData
+//        }
         
     }
     
