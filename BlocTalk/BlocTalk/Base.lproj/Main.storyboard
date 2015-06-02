@@ -157,13 +157,25 @@
                                             <constraint firstAttribute="width" constant="100" id="pqP-Nb-9zn"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6b-aS-epZ">
+                                        <rect key="frame" x="87" y="374" width="146" height="30"/>
+                                        <state key="normal" title="UnArchive">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="unArchiveButtonPressed:" destination="vO1-n0-lWp" eventType="touchUpInside" id="s6R-Sv-HaZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="rWx-l8-8ox" firstAttribute="top" secondItem="fKf-OE-R3i" secondAttribute="top" constant="8" id="7y4-5b-v6N"/>
+                                    <constraint firstItem="N6b-aS-epZ" firstAttribute="leading" secondItem="fKf-OE-R3i" secondAttribute="leading" constant="87" id="FWA-wL-bGk"/>
                                     <constraint firstAttribute="trailing" secondItem="rWx-l8-8ox" secondAttribute="trailing" constant="8" id="KKx-wg-wU5"/>
+                                    <constraint firstAttribute="trailing" secondItem="N6b-aS-epZ" secondAttribute="trailing" constant="87" id="PUN-QT-EIn"/>
                                     <constraint firstItem="Bmz-fS-Z7E" firstAttribute="leading" secondItem="fKf-OE-R3i" secondAttribute="leading" constant="8" id="aTY-qV-1TZ"/>
                                     <constraint firstItem="Bmz-fS-Z7E" firstAttribute="top" secondItem="fKf-OE-R3i" secondAttribute="top" constant="8" id="hMC-sc-q6c"/>
+                                    <constraint firstAttribute="bottom" secondItem="N6b-aS-epZ" secondAttribute="bottom" constant="8" id="hQV-kr-VOX"/>
                                     <constraint firstItem="rWx-l8-8ox" firstAttribute="leading" secondItem="Bmz-fS-Z7E" secondAttribute="trailing" constant="8" id="j5L-vw-hPr"/>
                                 </constraints>
                             </view>

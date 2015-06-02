@@ -31,7 +31,10 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
         
         DataSource.sharedInstance.allMessagesPeers = []
         for (peerID, messages) in DataSource.sharedInstance.allMessages {
-            DataSource.sharedInstance.allMessagesPeers.append(peerID)
+            // check if peer has been archived
+            if !contains(DataSource.sharedInstance.archivedPeers, peerID){
+                DataSource.sharedInstance.allMessagesPeers.append(peerID)
+            }
         }
         self.tableView.reloadData()
     }
@@ -88,7 +91,7 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -98,7 +101,21 @@ class ChatsTableViewController: UITableViewController, DataSourceDelegate {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        let archiveAction = UITableViewRowAction(style: .Default, title: "Archive") { (UITableViewRowAction, NSIndexPath) -> Void in
+            println("Archive this chat")
+
+            // check which conversation to archive
+            let peerID = DataSource.sharedInstance.allMessagesPeers[indexPath.row]
+            println("\(peerID.displayName)")
+            DataSource.sharedInstance.archivePeer(peerID)
+            self.tableView.reloadData()
+        }
+        
+        return [archiveAction]
+    }
 
     /*
     // Override to support rearranging the table view.
