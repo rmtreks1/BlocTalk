@@ -13,7 +13,7 @@ class ChatViewController: JSQMessagesViewController {
     
     var chatData: [JSQMessage]?
     var peerID: MCPeerID?
-    
+    @IBOutlet var peerStatusButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,25 @@ class ChatViewController: JSQMessagesViewController {
         self.senderDisplayName = DataSource.sharedInstance.displayName
         
         loadChatData()
+        
+        // user status
+        if let userStatus = DataSource.sharedInstance.allPeers[peerID!]{
+            
+            var title = "test"
+            switch userStatus {
+            case DataSource.UserStatus.Online:
+                title = "Online"
+                
+            case DataSource.UserStatus.Offline:
+                title = "Offline"
+                
+            default:
+                title = "Unknown"
+            }
+            
+            self.peerStatusButton.title = title
+        }
+        
      
         
     }
