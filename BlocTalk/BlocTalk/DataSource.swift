@@ -324,10 +324,32 @@ class DataSource: NSObject {
         println("datasource receivedMessage, \(message.text)")
         var messageArray = [message]
         
-        receivedMessages[peerID] = messageArray
+//        receivedMessages[peerID] = messageArray
+        
+        var chatMessages = [JSQMessage]()
+        if let tempChatMessages = self.allMessages[peerID]{
+            chatMessages = tempChatMessages
+            chatMessages.append(message)
+            self.allMessages[peerID] = chatMessages
+        }
+        
 
+        
+        
         NSNotificationCenter.defaultCenter().postNotificationName(peerID.displayName, object: self)
     }
+    
+    
+    func sentMessage (peerID: MCPeerID, message: JSQMessage){
+        
+        var chatMessages = [JSQMessage]()
+        if let tempChatMessages = self.allMessages[peerID]{
+            chatMessages = tempChatMessages
+            chatMessages.append(message)
+            self.allMessages[peerID] = chatMessages
+        }   
+    }
+    
     
     
     func saveMessages(){
