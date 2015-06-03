@@ -232,30 +232,73 @@
         <scene sceneID="gew-0a-5O9">
             <objects>
                 <tableViewController id="ZVc-7y-tgp" customClass="PeersBrowserTableViewController" customModule="BlocTalk" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LhL-pN-RBS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="87" sectionHeaderHeight="22" sectionFooterHeight="22" id="LhL-pN-RBS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="cell" textLabel="7L9-yC-UQz" detailTextLabel="TkW-KG-Ejn" style="IBUITableViewCellStyleSubtitle" id="iQN-8e-RI1">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="cell" rowHeight="87" id="iQN-8e-RI1" customClass="PeersTableViewCell" customModule="BlocTalk" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iQN-8e-RI1" id="Twx-xy-oZt">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7L9-yC-UQz">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sampleProfileImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Ieu-Kw-GAU">
+                                            <rect key="frame" x="8" y="8" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="THp-5F-Wsa"/>
+                                                <constraint firstAttribute="width" constant="60" id="s7t-92-V2h"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlw-H6-G5Z">
+                                            <rect key="frame" x="76" y="8" width="236" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="GJX-Tl-h9b"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TkW-KG-Ejn">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iU-kj-WF5">
+                                            <rect key="frame" x="76" y="41" width="236" height="17"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQx-L5-gHX">
+                                            <rect key="frame" x="8" y="56" width="304" height="30"/>
+                                            <subviews>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ORZ-Kc-ffJ">
+                                                    <rect key="frame" x="-80" y="14" width="376" height="2"/>
+                                                </progressView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="dlw-H6-G5Z" firstAttribute="top" secondItem="Twx-xy-oZt" secondAttribute="topMargin" id="2op-oV-Jpw"/>
+                                        <constraint firstItem="4iU-kj-WF5" firstAttribute="top" secondItem="dlw-H6-G5Z" secondAttribute="bottom" constant="8" id="AuS-9O-sE7"/>
+                                        <constraint firstItem="PQx-L5-gHX" firstAttribute="top" secondItem="dlw-H6-G5Z" secondAttribute="bottom" constant="23" id="Cuy-EG-d2d"/>
+                                        <constraint firstItem="dlw-H6-G5Z" firstAttribute="leading" secondItem="Ieu-Kw-GAU" secondAttribute="trailing" constant="8" id="HOu-NR-jcf"/>
+                                        <constraint firstItem="dlw-H6-G5Z" firstAttribute="trailing" secondItem="PQx-L5-gHX" secondAttribute="trailing" id="HWC-kX-bnz"/>
+                                        <constraint firstItem="PQx-L5-gHX" firstAttribute="leading" secondItem="Twx-xy-oZt" secondAttribute="leadingMargin" id="Jal-2I-zgj"/>
+                                        <constraint firstItem="4iU-kj-WF5" firstAttribute="top" secondItem="dlw-H6-G5Z" secondAttribute="bottom" constant="8" id="MLf-m0-w7z"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="PQx-L5-gHX" secondAttribute="bottom" constant="-8" id="Mbx-Pc-GQZ"/>
+                                        <constraint firstItem="dlw-H6-G5Z" firstAttribute="trailing" secondItem="Twx-xy-oZt" secondAttribute="trailingMargin" id="Ndt-GJ-iDj"/>
+                                        <constraint firstItem="Ieu-Kw-GAU" firstAttribute="leading" secondItem="Twx-xy-oZt" secondAttribute="leadingMargin" id="QxB-oB-V73"/>
+                                        <constraint firstItem="Ieu-Kw-GAU" firstAttribute="top" secondItem="Twx-xy-oZt" secondAttribute="topMargin" id="V7S-m0-EAu"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Ieu-Kw-GAU" secondAttribute="bottom" constant="10" id="XvU-RT-P1r"/>
+                                        <constraint firstItem="4iU-kj-WF5" firstAttribute="trailing" secondItem="Twx-xy-oZt" secondAttribute="trailingMargin" id="ZIE-7T-MlU"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="4iU-kj-WF5" secondAttribute="bottom" constant="20" id="cTk-aW-oNr"/>
+                                        <constraint firstItem="4iU-kj-WF5" firstAttribute="leading" secondItem="Ieu-Kw-GAU" secondAttribute="trailing" constant="8" id="qSe-DM-CpR"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="masterViewForProgressView" destination="PQx-L5-gHX" id="fE4-3S-9Qq"/>
+                                    <outlet property="peerDisplayNameLabel" destination="dlw-H6-G5Z" id="sMu-tV-7pi"/>
+                                    <outlet property="peerStatusLabel" destination="4iU-kj-WF5" id="Y9h-ba-jzG"/>
+                                    <outlet property="profileImageView" destination="Ieu-Kw-GAU" id="MIo-cR-MGv"/>
+                                    <outlet property="progressView" destination="ORZ-Kc-ffJ" id="YW1-tl-nPL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

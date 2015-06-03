@@ -51,24 +51,27 @@ class PeersBrowserTableViewController: UITableViewController, MPCManagerDelegate
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> PeersTableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! PeersTableViewCell
 
         // Configure the cell...
         let peer = DataSource.sharedInstance.availablePeers[indexPath.row] as MCPeerID
-        cell.textLabel?.text = peer.displayName
+        cell.peerDisplayNameLabel.text = peer.displayName
+        
         
         let userStatusString = DataSource.sharedInstance.allPeers[peer]!
         switch userStatusString {
         case .Online:
-            cell.detailTextLabel?.text = "Online"
+            cell.peerStatusLabel.text = "Online"
             
         case .Offline:
-            cell.detailTextLabel?.text = "Offline"
+            cell.peerStatusLabel.text = "Offline"
             
         default:
-            cell.detailTextLabel?.text = "Unknown"
+            cell.peerStatusLabel.text = "Unknown"
         }
+        
+        cell.masterViewForProgressView.hidden = true
         
         return cell
     }
